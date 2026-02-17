@@ -483,6 +483,105 @@
       .cbox .sc-pair { grid-template-columns:1fr; }
     }
 
+
+    /* ════ FIRST PRINCIPLES BOX ════ */
+    .fp-thinking {
+      background: #1a1e2e;
+      border: 1px solid #3a4a7a;
+      border-left: 5px solid #6a8abf;
+      border-radius: 8px;
+      margin-top: 22px;
+      overflow: hidden;
+    }
+    .fp-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem; letter-spacing: 0.18em;
+      text-transform: uppercase; font-weight: 600;
+      color: #7a9fd4;
+      padding: 10px 20px 8px;
+      border-bottom: 1px solid rgba(106,138,191,0.2);
+    }
+    .fp-body {
+      padding: 18px 22px 20px;
+    }
+    .fp-body > p {
+      color: #c8cfe8;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .fp-body strong { color: #9ab4e0; }
+    .fp-body em { color: #d4daf0; }
+    .fp-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .fp-pillar {
+      background: rgba(106,138,191,0.08);
+      border: 1px solid rgba(106,138,191,0.2);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .fp-pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem; font-weight: 700;
+      color: #8aaad4; margin-bottom: 6px;
+    }
+    .fp-pillar p {
+      font-size: 0.83rem; color: #b0bedd;
+      margin: 0; line-height: 1.55;
+    }
+    .fp-example {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(106,138,191,0.18);
+      border-radius: 6px;
+      padding: 13px 16px;
+      margin: 14px 0;
+    }
+    .fp-ex-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.63rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #7a9fd4;
+      margin-bottom: 7px;
+    }
+    .fp-example p {
+      font-size: 0.86rem; color: #b8c4e0;
+      margin: 0; line-height: 1.6;
+    }
+    .fp-steps {
+      margin: 14px 0 12px;
+    }
+    .fp-step {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(106,138,191,0.1);
+      font-size: 0.86rem; color: #b8c4e0;
+      line-height: 1.5;
+    }
+    .fp-step:last-child { border-bottom: none; }
+    .fp-step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(106,138,191,0.18);
+      border: 1px solid #6a8abf;
+      color: #7a9fd4;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .fp-closing {
+      font-size: 0.87rem; color: #a0aed0;
+      font-style: italic; line-height: 1.65;
+      margin: 12px 0 0 !important;
+      padding-top: 12px;
+      border-top: 1px solid rgba(106,138,191,0.15);
+    }
+    @media(max-width:720px){
+      .fp-pillars { grid-template-columns: 1fr; }
+    }
+
     /* ════ AUTHOR BLOCK ════ */
     .author-block {
       margin-top: 32px;
@@ -568,58 +667,79 @@
 
   <div class="origin-note">
     <strong>Geneza dokumentu:</strong> Niniejsza analiza powstała na podstawie obserwacji
-    i rozumowania naukowego autora —  która pracujac przez lata wspótworzac rodzinna firmę budowała swoją wiedzę na zrozumieniu zjawisk inżynierii budowlanej na poziomie akademickim kożystając z powszechności dostępu do wiedzy, dostrzegła fundamentalny błąd systemowy wyłącznie przez zastosowanie elementarnych
-    praw fizyki do realnego problemu. Praca została następnie rozszerzona o pełny aparat
-    matematyczny fizyki przegród, termodynamiki i transportu masy  w oparciu o obecnie dostępną wiedzę naukową autor rozumiejac zjawiaska zachodzące na styku kilku dziedzin inżynierii i fizyki połączył je w niniejszym dokumencie
-    jako naukowe potwierdzenie wiedzy wynikającej z myślenia pierwszoprincipalnego.
+    i rozumowania fizycznego autora — autora, który dostrzegł fundamentalny błąd systemowy przez zastosowanie
+    elementarnych praw fizyki do realnego problemu — bezpośrednio, bez pośrednictwa
+    utartych konwencji branżowych. Praca została następnie rozszerzona o pełny aparat
+    matematyczny fizyki przegród, termodynamiki i transportu masy —
+    jako naukowe potwierdzenie intuicji wynikającej z myślenia pierwszoprincipalnego.
   </div>
   <div class="author-block">
     <div class="author-sigil">PM</div>
     <div class="author-info">
       <div class="author-name">Paweł Majsterek</div>
       <div class="author-role">Autor analizy · Odkrywca problemu systemowego w izolacji kalenicy PIR<br>
-        Obserwator i analityk fizyki budowlanej — myślenie pierwszoprincypialne</div>
+        Analityk fizyki budowlanej · Autor identyfikacji błędu systemowego w izolacji kalenicy PIR</div>
       <div class="author-meta">Piaseczno, 17 lutego 2026</div>
     </div>
   </div>
+
+  <div class="fp-thinking">
+    <div class="fp-label">◈ Nota metodologiczna — Myślenie pierwszoprincypialne</div>
+    <div class="fp-body">
+      <p>
+        <strong>Myślenie oparte na pierwszych zasadach</strong> (ang. <em>first principles thinking</em>)
+        to metoda rozwiązywania złożonych problemów polegająca na dekonstrukcji skomplikowanych idei
+        na ich najbardziej fundamentalne, niezaprzeczalne prawdy — a następnie budowaniu rozwiązań
+        od nowa, wyłącznie z tych twardych faktów. Zamiast podejmować decyzje na podstawie analogii
+        (<em>„jak robią inni"</em>) lub utartych konwencji, podejście to zmusza do kwestionowania
+        każdego założenia i szukania fundamentalnych przyczyn.
+      </p>
+      <div class="fp-pillars">
+        <div class="fp-pillar">
+          <div class="fp-pillar-title">Rozkładanie na czynniki pierwsze</div>
+          <p>Złożony problem dzieli się na podstawowe fakty, usuwając kolejne warstwy konwencjonalnego myślenia i branżowych przyzwyczajeń.</p>
+        </div>
+        <div class="fp-pillar">
+          <div class="fp-pillar-title">Kwestionowanie założeń</div>
+          <p>Zadawanie pytania <em>„dlaczego?"</em> aż do momentu dotarcia do fundamentu, którego nie da się dalej rozłożyć — do praw fizyki, chemii, matematyki.</p>
+        </div>
+        <div class="fp-pillar">
+          <div class="fp-pillar-title">Rebudowanie od zera</div>
+          <p>Tworzenie nowego rozwiązania bezpośrednio z fundamentalnych zasad — bez dziedziczenia błędów poprzednich podejść.</p>
+        </div>
+        <div class="fp-pillar">
+          <div class="fp-pillar-title">Zasady ponad analogie</div>
+          <p>Elon Musk: <em>„większość myśli przez analogię — robię to, bo inni tak robią. Myślenie z pierwszych zasad to fizyczny sposób patrzenia na świat."</em></p>
+        </div>
+      </div>
+      <div class="fp-example">
+        <div class="fp-ex-title">Przykład: Elon Musk i rakiety SpaceX</div>
+        <p>
+          Kiedy Musk chciał kupić rakiety, kosztowały one fortunę. Zamiast akceptować wysokie ceny
+          (myślenie przez analogię), rozłożył rakietę na surowce: aluminium, tytan, miedź, włókno węglowe, paliwo.
+          Koszt materiałów okazał się ułamkiem ceny gotowego produktu. To zrozumienie pierwszej zasady
+          pozwoliło założyć SpaceX i budować rakiety wielokrotnie taniej.
+        </p>
+      </div>
+      <div class="fp-steps">
+        <div class="fp-step"><span class="fp-step-num">1</span><span>Zdefiniuj problem najprościej jak to możliwe</span></div>
+        <div class="fp-step"><span class="fp-step-num">2</span><span>Wypisz wszystko, co wydaje się <em>„oczywiste"</em> — to są właśnie założenia do zakwestionowania</span></div>
+        <div class="fp-step"><span class="fp-step-num">3</span><span>Zadawaj <em>„dlaczego"</em> i eliminuj wszystko, co jest opinią lub utartą normą, nie twardym faktem</span></div>
+        <div class="fp-step"><span class="fp-step-num">4</span><span>Zbuduj rozwiązanie od nowa — wyłącznie na tym, co przetrwało weryfikację</span></div>
+      </div>
+      <p class="fp-closing">
+       Stosowana prz4ez osoby z wysokimi zdolnościami abstrakcyjnego myslenia metoda ta rozumienia rzeczywistości analitycznie u podstaw jest szczególnie użyteczna w sytuacjach, gdy standardowe podejścia zawodzą —
+        gdy eksperci nie widzą problemu, bo zbyt dobrze znają konwencje swojej branży.
+        W przypadku niniejszego dokumentu: pytanie <em>„co się dzieje z wilgocią w złączu kalenicy?"</em>
+         wymagało rozumienia praw na elementarnym poziomie i umiejetność łączenia różnych dziedzin fizyki chemii i inzynierii budowlanej .
+        
+      </p>
+    </div>
+  </div>
+
   </div>
 </div>
 
- <div class="author-info">
-      <div class="author-name">Myślenie oparte na pierwszych zasadach (ang. first principles thinking), określane często jako myślenie pierwszoprincipialne, to metoda rozwiązywania złożonych problemów polegająca na dekonstrukcji skomplikowanych idei na ich najbardziej fundamentalne, niezaprzeczalne prawdy, a następnie budowaniu z nich rozwiązań od nowa.
-
-Zamiast podejmować decyzje na podstawie analogii (jak robią inni) lub utartych konwencji, podejście to zmusza do kwestionowania założeń i szukania fundamentalnych przyczyn.
-
-Kluczowe aspekty myślenia pierwszoprincipialnego:
-
-• Rozkładanie na czynniki pierwsze:
-Złożony problem dzieli się na podstawowe fakty, usuwając warstwy konwencjonalnego myślenia.
-
-• Kwestionowanie założeń:
-Zadawanie pytania „dlaczego?” aż do momentu dotarcia do fundamentu, którego nie da się dalej rozbić.
-
-• Rebudowanie od zera:
-Tworzenie nowego rozwiązania bezpośrednio z fundamentalnych zasad.
-
-• Analogie vs. zasady:
-Elon Musk podkreśla różnicę: większość ludzi myśli przez analogię („robię to, bo inni tak robią”), podczas gdy myślenie z pierwszych zasad to „fizyczny sposób patrzenia na świat” — bazowanie na tym, co jest pewną prawdą.
-
-Przykład: Elon Musk i rakiety SpaceX
-
-Kiedy Musk chciał kupić rakiety, kosztowały one fortunę. Zamiast akceptować wysokie ceny (analogie), rozłożył rakietę na surowce: aluminium, tytan, miedź, włókno węglowe i paliwo. Okazało się, że koszt materiałów to tylko niewielka część ceny rakiety. Zrozumienie tego faktu (pierwszej zasady) pozwoliło mu założyć SpaceX i budować rakiety znacznie taniej, zamiast kupować gotowe, drogie rozwiązania.
-
-Jak stosować to w praktyce?
-
-Zdefiniuj problem: określ go najprościej jak to możliwe.
-
-Zidentyfikuj założenia: wypisz wszystko, co wydaje ci się „pewne” w danej sytuacji.
-
-Rozbij na fundamentalne prawdy: zadawaj „dlaczego” i eliminuj to, co jest tylko opinią lub utartą normą.
-
-Stwórz rozwiązanie od nowa: zbuduj nową metodę, opierając się wyłącznie na tych twardych faktach.
-
-Metoda ta jest szczególnie użyteczna w innowacjach, przedsiębiorczości i w sytuacjach, gdy standardowe metody zawodzą, umożliwiając tworzenie nowatorskich rozwiązań.</div>
-  
 <!-- ════ ALERT BANNER ════ -->
 <div class="alert-top">
   <strong>⚠ Centralna teza dokumentu:</strong>
@@ -661,7 +781,7 @@ Metoda ta jest szczególnie użyteczna w innowacjach, przedsiębiorczości i w s
 </p>
 
 <p>
-  To odkrycie — głęboko zakorzenione w prawach fizyki —
+  To odkrycie — intuicyjne w swojej istocie, lecz głęboko zakorzenione w prawach fizyki —
   wymagało następnie potwierdzenia w pełnym aparacie matematycznym. Niniejszy dokument
   jest właśnie tym potwierdzeniem: <strong>przekształceniem fizycznej intuicji w ścisły model naukowy</strong>
   obejmujący termodynamikę transportu masy, mechanikę płynów, fizykę faz i biologię degradacji.
