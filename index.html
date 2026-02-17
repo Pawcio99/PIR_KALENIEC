@@ -482,6 +482,56 @@
       .fb { overflow-x:auto; }
       .cbox .sc-pair { grid-template-columns:1fr; }
     }
+
+    /* ════ AUTHOR BLOCK ════ */
+    .author-block {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .author-sigil {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(201,148,10,0.18);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .author-info { flex: 1; }
+    .author-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: #fff; margin-bottom: 3px;
+    }
+    .author-role {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .author-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--gold); margin-top: 6px;
+    }
+    .origin-note {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+      margin-top: 20px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      line-height: 1.65;
+      max-width: 820px;
+    }
+    .origin-note strong { color: rgba(255,255,255,0.92); font-style: normal; }
   </style>
 </head>
 <body>
@@ -515,6 +565,24 @@
     <span class="tag">WUFI Pro / DELPHIN</span>
     <span class="tag">Błąd systemowy rynku</span>
     <span class="tag">Prognoza zniszczenia</span>
+
+  <div class="origin-note">
+    <strong>Geneza dokumentu:</strong> Niniejsza analiza powstała na podstawie obserwacji
+    i rozumowania fizycznego autora — osoby spoza środowiska akademickiego inżynierii budowlanej,
+    która dostrzegła fundamentalny błąd systemowy wyłącznie przez zastosowanie elementarnych
+    praw fizyki do realnego problemu. Praca została następnie rozszerzona o pełny aparat
+    matematyczny fizyki przegród, termodynamiki i transportu masy —
+    jako naukowe potwierdzenie intuicji wynikającej z myślenia pierwszoprincipalnego.
+  </div>
+  <div class="author-block">
+    <div class="author-sigil">PM</div>
+    <div class="author-info">
+      <div class="author-name">Paweł Majsterek</div>
+      <div class="author-role">Autor analizy · Odkrywca problemu systemowego w izolacji kalenicy PIR<br>
+        Obserwator i analityk fizyki budowlanej — myślenie pierwszoprincypialne</div>
+      <div class="author-meta">Piaseczno, 17 lutego 2026</div>
+    </div>
+  </div>
   </div>
 </div>
 
@@ -534,25 +602,70 @@
 <div class="content">
 
 <!-- ════ §0 WSTĘP ════ -->
-<h2><span class="sn">§ 0</span> Kontekst — błędy systemowe wiedzy i ich konsekwencje</h2>
+<h2><span class="sn">§ 0</span> Geneza i cel dokumentu — myślenie pierwszoprincypialne jako narzędzie odkrycia</h2>
+
+<p>
+  Problem opisany w niniejszym dokumencie nie został zidentyfikowany przez inżyniera budowlanego,
+  inspektora nadzoru ani laboratoryjna analizę materiałową. Został odkryty przez
+  <strong>Pawła Majsterka</strong> — osobę bez formalnego wykształcenia w dziedzinie fizyki budowli,
+  dysponującą jednak czymś, czego brakuje większości uczestników rynku budowlanego:
+  <mark>zdolnością do myślenia pierwszoprincypialnego</mark> — rozumowania wprost z praw fizyki,
+  bez założeń branżowych, bez autorytetu tradycji wykonawczej, bez intelektualnego balastu
+  „tak się robi od zawsze".
+</p>
+
+<p>
+  Obserwując rzeczywiste wykonanie złącza kalenicy w systemie PIR z wypełnieniem pianką
+  otwartokomórkową, autor postawił pytanie, które rzadko pada w branży budowlanej:
+  <em>co się dzieje z wilgocią w tym miejscu — i dokąd ona idzie?</em>
+  Odpowiedź, wynikająca z elementarnego zrozumienia dyfuzji, gradientu temperatury
+  i ciśnienia pary wodnej, była jednoznaczna i alarmująca. Pianka otwartokomórkowa
+  o współczynniku oporu dyfuzyjnego µ ≈ 3–5 nie stanowi żadnej bariery —
+  jest niemal przezroczysta dla pary wodnej. Zamknięta w złączu bez drogi odprowadzenia
+  staje się <span class="hr">pułapką wilgoci skazującą konstrukcję na degradację</span>,
+  niezależnie od staranności wykonania pozostałych warstw.
+</p>
+
+<p>
+  To odkrycie — intuicyjne w swojej istocie, lecz głęboko zakorzenione w prawach fizyki —
+  wymagało następnie potwierdzenia w pełnym aparacie matematycznym. Niniejszy dokument
+  jest właśnie tym potwierdzeniem: <strong>przekształceniem fizycznej intuicji w ścisły model naukowy</strong>
+  obejmujący termodynamikę transportu masy, mechanikę płynów, fizykę faz i biologię degradacji.
+  Każde ze zjawisk opisanych w kolejnych rozdziałach było już znane nauce —
+  nieznanym pozostawało ich <em>jednoczesne współwystępowanie w jednym miejscu</em>
+  i wynikająca z tego nieuchronność kaskadowego zniszczenia.
+</p>
+
+<p>
+  Geneza dokumentu niesie w sobie ważniejszą lekcję niż sama treść techniczna:
+  <mark>błąd systemowy rynku budowlanego nie wymagał skomplikowanych badań laboratoryjnych,
+  by go wykryć — wymagał jedynie odwagi zadania pytania i uczciwości wobec odpowiedzi,
+  której udzielają prawa fizyki</mark>. Inżynierowie, projektanci i dystrybutorzy
+  dysponujący formalną wiedzą nie zadali tego pytania. Zadał je obserwator,
+  który nie wiedział, że „tak się robi" — i dlatego zobaczył to, czego inni nie widzieli.
+</p>
+
+<div class="note" style="border-left:4px solid var(--gold); background:#faf6e8;">
+  <strong>Zakres naukowy dokumentu:</strong>
+  Analiza integruje wiedzę z pięciu dziedzin fizyki i nauk pokrewnych:
+  (1) termodynamiki statystycznej i transportu masy — mechanizmy dyfuzji, konwekcji i termodyfuzji Soret'a;
+  (2) mechaniki płynów — prawa Hagen–Poiseuille'a, Darcy'ego, kryteria Rayleigha;
+  (3) fizykochemii materiałów — hydroliza poliuretanów, kinetyka kondensacji Hertz–Knudsena, krystalizacja lodu;
+  (4) fizyki budowli — modele HAM (Künzel), metody S<sub>d</sub>, normy EN 13788 i EN 15026;
+  (5) biologii i toksykologii — patogeny mikrobiologiczne, emisja VOC, skutki zdrowotne.
+  Żadna z tych dziedzin samodzielnie nie opisuje pełni problemu — dopiero ich synteza
+  ujawnia mechanizm kaskadowego zniszczenia i jego nieuchronność.
+</div>
 
 <p>
   Błąd zastosowania pianki otwartokomórkowej w kalenicach dachów PIR nie jest wypadkiem
   indywidualnym — jest <mark>błędem systemowym wynikającym z luki wiedzy inżynierskiej
-  na styku projektowania, dystrybucji i wykonawstwa</mark>. Projektant zakłada szczelność
-  według normy. Producent PIR dostarcza płyty o deklarowanym µ. Wykonawca wypełnia szczelinę
-  pianką OC — bo tak robił zawsze, bo tak widział na filmach instruktażowych, bo nikt nie powiedział,
-  że to błąd. Dystrybutor PIR — jak wykazała praktyka — sam budując dach demonstracyjny
-  użył materiałów kategorycznie nieodpowiednich, nie rozumiejąc fizyki przegrody.
-</p>
-
-<p>
-  Wynikiem jest układ fizycznie skazany na degradację, który przez kilka lat nie daje
-  żadnych widocznych symptomów, a pierwsze oznaki pojawia się dopiero gdy <span class="hr">naprawa
-  jest 5–12× droższa niż prawidłowe wykonanie</span> i gdy zdrowie użytkowników
-  było narażone na działanie patogenów przez latka. Niniejszy dokument przeprowadza
-  pełną analizę fizykalną trzech realnych scenariuszy eksploatacyjnych, dowodząc,
-  że wszystkie trzy prowadzą do tego samego końca — zniszczenia.
+  na styku projektowania, dystrybucji i wykonawstwa</mark>. Dystrybutor PIR,
+  sam budując dach demonstracyjny jako reklamę własnej firmy,
+  użył materiałów kategorycznie nieodpowiednich, nie rozumiejąc fizyki przegrody —
+  i w ten sposób upowszechnił błąd na setki kolejnych realizacji.
+  Niniejszy dokument przeprowadza pełną analizę fizykalną trzech realnych scenariuszy,
+  dowodząc, że wszystkie trzy prowadzą do tego samego końca — zniszczenia.
 </p>
 
 <div class="scenario-grid-3" style="margin-bottom:0">
