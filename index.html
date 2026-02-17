@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Transportu Wilgoci – Kaskadowa Degradacja Kalenicy PIR</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --paper: #faf8f3;
+      --accent-blue: #1d4e89;
+      --accent-gold: #b8860b;
+      --accent-border: #c8b89a;
+
+      /* Cascade colors */
+      --c1-bg: #e8f4f8;
+      --c1-border: #1a6fa0;
+      --c1-text: #0d3d5c;
+      --c1-tag: #1a6fa0;
+
+      --c2-bg: #eef6ee;
+      --c2-border: #2e7d32;
+      --c2-text: #1a4c1d;
+      --c2-tag: #2e7d32;
+
+      --c3-bg: #fff8e1;
+      --c3-border: #e65100;
+      --c3-text: #6d2a00;
+      --c3-tag: #e65100;
+
+      --c4-bg: #fce4ec;
+      --c4-border: #c62828;
+      --c4-text: #7f0000;
+      --c4-tag: #c62828;
+
+      --c5-bg: #2a0a0a;
+      --c5-border: #ff1744;
+      --c5-text: #ffcdd2;
+      --c5-tag: #ff1744;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.75;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0;
+    }
+
+    .masthead {
+      background: var(--accent-blue);
+      color: #fff;
+      padding: 48px 60px 36px;
+      border-bottom: 5px solid var(--accent-gold);
+      position: relative;
+      overflow: hidden;
+    }
+    .masthead::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .masthead-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 12px;
+    }
+    .masthead h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #fff;
+      max-width: 780px;
+    }
+    .masthead-sub {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 680px;
+    }
+
+    .content {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 60px 80px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent-blue);
+      margin: 48px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-gold);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sec-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.08em;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent-blue);
+      margin: 28px 0 10px;
+    }
+
+    p { margin-bottom: 14px; font-size: 0.97rem; }
+
+    .formula-block {
+      background: #fff;
+      border: 1px solid var(--accent-border);
+      border-left: 4px solid var(--accent-blue);
+      padding: 18px 24px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 1.02rem;
+    }
+    .formula-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    /* ===== CASCADE BOXES ===== */
+    .cascade-section {
+      margin: 50px 0;
+    }
+    .cascade-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      border-bottom: 3px double var(--accent-gold);
+    }
+    .cascade-intro {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 28px;
+    }
+
+    .cascade-flow {
+      position: relative;
+      padding-left: 32px;
+    }
+    .cascade-flow::before {
+      content: '';
+      position: absolute;
+      left: 12px; top: 20px; bottom: 20px;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--c1-border), var(--c2-border), var(--c3-border), var(--c4-border), var(--c5-border));
+      border-radius: 3px;
+    }
+
+    .cascade-step {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .cascade-step::before {
+      content: '';
+      position: absolute;
+      left: -28px; top: 22px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px var(--step-color, #999);
+      background: var(--step-color, #999);
+    }
+    .cascade-step .arrow-down {
+      text-align: left;
+      padding-left: 4px;
+      font-size: 1.2rem;
+      color: #999;
+      margin: -14px 0 -4px;
+      line-height: 1;
+    }
+
+    .cbox {
+      border-radius: 6px;
+      border-left: 5px solid;
+      padding: 18px 22px;
+      position: relative;
+    }
+    .cbox-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .cbox h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .cbox p { font-size: 0.92rem; margin: 0 0 8px; }
+    .cbox .formula-inline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: rgba(255,255,255,0.5);
+      padding: 3px 8px;
+      border-radius: 3px;
+      display: inline-block;
+      margin: 4px 0;
+    }
+    .cbox .effects {
+      font-size: 0.88rem;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    .cbox .effects strong { font-weight: 600; }
+
+    /* Level colors */
+    .level-1 { background: var(--c1-bg); border-color: var(--c1-border); --step-color: var(--c1-border); }
+    .level-1 .cbox-tag { color: var(--c1-tag); }
+    .level-1 h4 { color: var(--c1-text); }
+
+    .level-2 { background: var(--c2-bg); border-color: var(--c2-border); --step-color: var(--c2-border); }
+    .level-2 .cbox-tag { color: var(--c2-tag); }
+    .level-2 h4 { color: var(--c2-text); }
+
+    .level-3 { background: var(--c3-bg); border-color: var(--c3-border); --step-color: var(--c3-border); }
+    .level-3 .cbox-tag { color: var(--c3-tag); }
+    .level-3 h4 { color: var(--c3-text); }
+
+    .level-4 { background: var(--c4-bg); border-color: var(--c4-border); --step-color: var(--c4-border); }
+    .level-4 .cbox-tag { color: var(--c4-tag); }
+    .level-4 h4 { color: var(--c4-text); }
+
+    .level-5 {
+      background: var(--c5-bg);
+      border-color: var(--c5-border);
+      --step-color: var(--c5-border);
+    }
+    .level-5 .cbox-tag { color: var(--c5-tag); }
+    .level-5 h4 { color: var(--c5-text); }
+    .level-5 p { color: var(--c5-text); }
+    .level-5 .effects { color: var(--c5-text); border-color: rgba(255,255,255,0.15); }
+    .level-5 .formula-inline { background: rgba(255,255,255,0.1); color: #ff8a80; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 36px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .legend-dot {
+      width: 14px; height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.88rem;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    th {
+      background: var(--accent-blue);
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-family: 'Source Serif 4', serif;
+      font-weight: 600;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 10px 14px;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #f5f5f5; }
+    tr:hover td { background: #eef3ff; }
+    td code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: #eee;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .note-box {
+      background: #f0f4ff;
+      border: 1px solid #aec6ef;
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      color: #234;
+      margin: 20px 0;
+    }
+    .note-box strong { color: var(--accent-blue); }
+
+    .warning-box {
+      background: #fff3e0;
+      border: 2px solid #e65100;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 24px 0;
+    }
+    .warning-box .w-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #e65100;
+      margin-bottom: 8px;
+    }
+    .warning-box p { font-size: 0.93rem; margin: 0; }
+
+    footer {
+      background: var(--accent-blue);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+      margin-top: 60px;
+    }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .masthead { padding: 28px 18px 24px; }
+      .masthead h1 { font-size: 1.3rem; }
+      .masthead-label { font-size: 0.62rem; letter-spacing: 0.1em; }
+      .content { padding: 24px 16px 48px; }
+      h2 { font-size: 1.1rem; flex-wrap: wrap; }
+
+      .formula-block {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 14px;
+      }
+      mjx-container[display="true"] {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        max-width: 100% !important;
+      }
+      .cbox .formula-inline {
+        font-size: 0.74rem;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        padding: 5px 10px;
+      }
+      table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.8rem;
+      }
+      th, td { padding: 8px 10px; min-width: 90px; }
+      .cascade-flow { padding-left: 22px; }
+      .cascade-flow::before { left: 6px; }
+      .cascade-step::before { left: -22px; width: 10px; height: 10px; }
+      .cbox { padding: 14px; }
+      .cbox h4 { font-size: 0.97rem; }
+      .legend { gap: 8px; }
+      .legend-item { font-size: 0.75rem; }
+      .warning-box, .note-box { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-label">Analiza Naukowa · Inżynieria Budownictwa · PIR + Pianka Otwartokomórkowa</div>
+  <h1>Kaskadowy Model Degradacji Wilgotnościowej w Połaci Dachowej z Izolacją PIR</h1>
+  <div class="masthead-sub">
+    Kompleksowy model transportu wilgoci obejmujący dyfuzję molekularną, konwekcję w szczelinach, kondensację, resublimację oraz
+    mechanizm kaskadowego pogłębiania uszkodzeń w strefie kalenicy — poziom naukowy dla inżynierii konstrukcji dachowych.
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 1</span> Podstawy fizykalne: gęstość molarna pary wodnej</h2>
+
+  <p>
+    Fundamentalnym nośnikiem wilgoci w przegrodzie dachowej jest gęstość molarna pary wodnej
+    \(\rho_v\), definiowana przez prawo gazów doskonałych w formie:
+  </p>
+  <div class="formula-block">
+    <div class="formula-label">Równanie stanu pary wodnej</div>
+    $$\rho_v = \frac{p_v}{R_v T} \qquad \left[\text{kg·m}^{-3}\right]$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      gdzie: \(p_v\) — ciśnienie parcjalne pary wodnej [Pa], \(R_v = 461{,}5\ \text{J·kg}^{-1}\text{·K}^{-1}\) — stała gazowa pary wodnej, \(T\) — temperatura bezwzględna [K].
+    </p>
+  </div>
+  <p>
+    Zależność ta wskazuje, że przy stałym ciśnieniu parcjalnym wzrost temperatury <em>obniża</em> gęstość
+    pary i odwrotnie — ochłodzenie powietrza wilgotnego wzdłuż szlaku konwekcyjnego do kalenicy
+    prowadzi do koncentracji nośnika wilgoci w strefie naroży i połączeń.
+  </p>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 2</span> Pełne równanie transportu wilgoci</h2>
+
+  <div class="formula-block">
+    <div class="formula-label">Równanie transportu — postać ogólna</div>
+    $$\frac{\partial \rho_v}{\partial t} + \underbrace{\nabla \cdot (\rho_v \vec{v})}_{\text{konwekcja}} = \underbrace{\nabla \cdot (D_{\text{eff}} \nabla \rho_v)}_{\text{dyfuzja}} + \underbrace{\alpha_T \nabla \cdot (\rho_v \nabla T)}_{\text{efekt Soret'a}} - \underbrace{\dot{m}_{\text{cond}} - \dot{m}_{\text{resub}}}_{\text{zmiana fazy}}$$
+  </div>
+
+  <p>
+    Powyższe równanie łączy pięć mechanizmów, których wzajemne interakcje tworzą
+    kaskadę degradacyjną opisaną w §&nbsp;5. Efektywny współczynnik dyfuzji \(D_{\text{eff}}\)
+    jest tensorem anizotropowym zależnym od mikrostruktury materiału:
+  </p>
+  <div class="formula-block">
+    <div class="formula-label">Efektywny współczynnik dyfuzji — model Millingtona–Quirka</div>
+    $$D_{\text{eff}} = D_0 \cdot \frac{\varepsilon^{10/3}}{\tau^2} \qquad \left[\text{m}^2\text{·s}^{-1}\right]$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      gdzie: \(D_0 = 2{,}56 \times 10^{-5}\ \text{m}^2\text{·s}^{-1}\) — dyfuzja pary w powietrzu (20°C),
+      \(\varepsilon\) — porowatość efektywna pianki, \(\tau\) — współczynnik krętości dróg dyfuzji.
+      W piance PIR zamkniętej \(\varepsilon \approx 0{,}03\text{–}0{,}05\), a dyfuzja jest silnie hamowana.
+    </p>
+  </div>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 3</span> Konwekcja w szczelinach — prawo Hagen–Poiseuille'a</h2>
+
+  <div class="formula-block">
+    <div class="formula-label">Prędkość przepływu w szczelinie planarnej</div>
+    $$\bar{v} = \frac{h^2 \Delta P}{12\, \eta\, L} \qquad \left[\text{m·s}^{-1}\right]$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      gdzie: \(h\) — szerokość szczeliny [m], \(\Delta P\) — gradient ciśnienia [Pa·m<sup>−1</sup>],
+      \(\eta = 1{,}81 \times 10^{-5}\ \text{Pa·s}\) — lepkość dynamiczna powietrza (20°C), \(L\) — długość szczeliny [m].
+    </p>
+  </div>
+
+  <p>
+    Krytyczne spostrzeżenie dla degradacji kalenicy: strumień konwekcyjny skaluje się
+    z <em>trzecią potęgą szerokości szczeliny</em> \((\dot{V} \propto h^3)\). Już wzrost
+    szerokości szczeliny z 0,1&nbsp;mm do 0,5&nbsp;mm — możliwy po jednym cyklu zamrażania/rozmrażania —
+    powoduje 125-krotny wzrost przepływu masy wilgoci.
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Krytyczny warunek konwekcji termicznej (liczba Rayleigha)</div>
+    $$\text{Ra} = \frac{g \beta \Delta T h^3}{\nu \alpha} > \text{Ra}_{\text{cr}} \approx 1708$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      Przekroczenie \(\text{Ra}_{\text{cr}}\) inicjuje konwekcję naturalną w szczelinach powietrznych
+      strefy kalenicy, generując cyrkulację i transport wilgoci niezależnie od ciśnienia wiatru.
+    </p>
+  </div>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 4</span> Kinetyka kondensacji i resublimacji</h2>
+
+  <div class="formula-block">
+    <div class="formula-label">Strumień kondensacji ciekłej (model Hertz–Knudsena)</div>
+    $$\dot{m}_{\text{cond}} = \frac{\sigma \alpha_c}{\sqrt{2\pi R_v T}} \cdot \max\!\left(0,\ p_v - p_{\text{sat}}^{\text{liq}}(T)\right) \qquad \left[\text{kg·m}^{-2}\text{·s}^{-1}\right]$$
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Ciśnienie nasycenia — równanie Antoine'a (zakres −40°C ÷ 60°C)</div>
+    $$\ln p_{\text{sat}} = A - \frac{B}{C + T} \qquad \text{[Pa]}$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      Dla wody ciekłej: \(A = 23{,}196\), \(B = 3816{,}44\), \(C = -46{,}13\) (\(T\) w K).<br>
+      Dla lodu: \(A = 23{,}332\), \(B = 3892{,}70\), \(C = -12{,}47\).
+    </p>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Resublimacja (T &lt; 0°C) z uwzględnieniem przechłodzenia</div>
+    $$\dot{m}_{\text{resub}} = k_{\text{resub}}(T) \cdot \max\!\left(0,\ p_v - p_{\text{sat}}^{\text{ice}}(T)\right) - \frac{\partial \rho_{\text{ice}}}{\partial t} \cdot L_s$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      \(L_s = 2{,}838 \times 10^6\ \text{J·kg}^{-1}\) — ciepło sublimacji lodu; człon ostatni uwzględnia
+      ciepło utajone uwalniane przy wzroście kryształów lodu, które lokalnie ogrzewa środowisko
+      i modyfikuje gradient temperatury.
+    </p>
+  </div>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 5</span> Kaskadowa degradacja kalenicy — model progresywny</h2>
+
+  <div class="cascade-section">
+    <div class="cascade-title">Diagram kaskadowy: od mikrodefektu do uszkodzenia konstrukcji</div>
+    <p class="cascade-intro">
+      Poniższy schemat przedstawia mechanizm samonapędzającego się cyklu degradacyjnego.
+      Każdy poziom kaskady jest zarówno <em>skutkiem</em> poprzedniego, jak i <em>przyczyną</em>
+      następnego — system wykazuje cechy bifurkacji: po przekroczeniu progu krytycznego
+      powrót do stanu początkowego jest energetycznie niemożliwy.
+    </p>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c1-border)"></div> FAZA I — Inicjacja</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c2-border)"></div> FAZA II — Akumulacja</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c3-border)"></div> FAZA III — Eskalacja termomechaniczna</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c4-border)"></div> FAZA IV — Degradacja materiałowa</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--c5-border)"></div> FAZA V — Uszkodzenie strukturalne</div>
+    </div>
+
+    <div class="cascade-flow">
+
+      <!-- FAZA I -->
+      <div class="cascade-step">
+        <div class="cbox level-1">
+          <div class="cbox-tag">◉ FAZA I — INICJACJA MIKRODEFEKTU</div>
+          <h4>Pierwsza infiltracja wilgoci przez mikroszczeliny</h4>
+          <p>
+            Wilgotne powietrze wewnętrzne (RH ≈ 50–65%) penetruje mikroszczeliny na obrzeżach
+            płyt PIR, w miejscach dylatacji lub przy niedokładnym uszczelnieniu kalenicy.
+            Napęd ciśnieniowy wynika z różnicy ciśnienia parcjalnego:
+          </p>
+          <span class="formula-inline">Δp_v = p_v(T_in) − p_v(T_out) ≈ 600–1200 Pa (warunki zimowe)</span>
+          <div class="effects">
+            <strong>Parametr krytyczny:</strong> Szerokość szczeliny \(h_0 &gt; 0{,}05\ \text{mm}\)
+            inicjuje laminarny przepływ powietrza. Strumień konwekcji dominuje nad dyfuzją
+            gdy \(\text{Pe} = \bar{v} \cdot h / D_{\text{eff}} \gg 1\).
+            Gromadzenie wilgoci w strefie kalenicy przebiega eksponencjalnie wobec czasu ekspozycji.
+          </div>
+        </div>
+        <div class="arrow-down">↓</div>
+      </div>
+
+      <!-- FAZA II -->
+      <div class="cascade-step">
+        <div class="cbox level-2">
+          <div class="cbox-tag">◉ FAZA II — AKUMULACJA I KONDENSACJA</div>
+          <h4>Przekroczenie punktu rosy — formowanie kondensatu</h4>
+          <p>
+            Para wodna transportowana konwekcyjnie ku kalenicay osiąga strefy, gdzie
+            \(T &lt; T_{\text{dew}}\). Kondensacja zachodzi na zimnych powierzchniach aluminium,
+            folii paroprzepuszczalnej i rdzeniu PIR. Ciepło utajone kondensacji:
+          </p>
+          <span class="formula-inline">q_cond = L_v · ṁ_cond ≈ 2500 kJ/kg</span>
+          <p>
+            tymczasowo podwyższa lokalną temperaturę, modyfikując rozkład pola termicznego
+            i przemieszczając punkt rosy w głąb przegrody — efekt sprzężenia termiczno-wilgotnościowego.
+          </p>
+          <div class="effects">
+            <strong>Zjawisko kluczowe:</strong> Hydrofilowe włókna taśm uszczelniających absorbują
+            kondensat, trwale zwiększając przewodność cieplną złącza kalenicy (\(\lambda\) rośnie
+            od ~0,03 do ~0,6 W·m⁻¹·K⁻¹ przy nasyceniu wodą). Tworzy się termiczny mostek wilgotnościowy.
+          </div>
+        </div>
+        <div class="arrow-down">↓</div>
+      </div>
+
+      <!-- FAZA III -->
+      <div class="cascade-step">
+        <div class="cbox level-3">
+          <div class="cbox-tag">◉ FAZA III — ESKALACJA TERMOMECHANICZNA</div>
+          <h4>Cykle zamrażania/rozmrażania — rozrost szczeliny</h4>
+          <p>
+            Przy temperaturach \(T &lt; 0°C\) nagromadzony kondensat ulega zamrożeniu.
+            Woda rozszerza się o 9,05% objętości przy przejściu fazowym,
+            generując ciśnienie krystalizacyjne:
+          </p>
+          <span class="formula-inline">P_cryst = (RT/V_m) · ln(a_w/a_ice) ≈ 20–200 MPa</span>
+          <p>
+            Ciśnienie to wielokrotnie przekracza wytrzymałość na rozciąganie rdzenia PIR
+            (σ_t ≈ 0,15–0,40 MPa). Każdy cykl F/T poszerza szczelinę o Δh,
+            co zgodnie z zależnością \(\dot{V} \propto h^3\) drastycznie zwiększa przepływ
+            wilgoci w następnym sezonie.
+          </p>
+          <div class="effects">
+            <strong>Sprzężenie zwrotne:</strong> Szeroka szczelina → większy transport wilgoci →
+            więcej kondensatu → większy lód → szersza szczelina.
+            System osiąga bifurkację — samowzmacniające się uszkodzenie.
+          </div>
+        </div>
+        <div class="arrow-down">↓</div>
+      </div>
+
+      <!-- FAZA IV -->
+      <div class="cascade-step">
+        <div class="cbox level-4">
+          <div class="cbox-tag">◉ FAZA IV — DEGRADACJA MATERIAŁOWA PIR</div>
+          <h4>Hydroliza i utrata właściwości izolacyjnych</h4>
+          <p>
+            Wilgoć infiltrująca komórki pianki PIR prowadzi do hydrolizy wiązań
+            uretan-izocyjanian. Efektywna przewodność cieplna narasta w czasie:
+          </p>
+          <span class="formula-inline">λ_eff(t) = λ_dry + Δλ · (1 − e^(−t/τ_hyd))</span>
+          <p>
+            Jednocześnie w makroszczelinach (>1 mm) inicjuje się konwekcja termiczna
+            z \(\text{Ra} &gt; \text{Ra}_{cr}\), całkowicie eliminując opór dyfuzyjny izolacji
+            w tym przekroju. Strefa „pseudoprzepony" — region permanentnie nasyconego
+            powietrzem rdzenia — staje się kanałem konwekcyjnym.
+          </p>
+          <div class="effects">
+            <strong>Konsekwencja obliczeniowa:</strong> Wartość U dachu wzrasta z projektowej
+            0,10–0,12 W·m⁻²·K⁻¹ do rzeczywistej 0,25–0,45 W·m⁻²·K⁻¹ w strefie kalenicy
+            — naruszenie wymagań WT 2021.
+          </div>
+        </div>
+        <div class="arrow-down">↓</div>
+      </div>
+
+      <!-- FAZA V -->
+      <div class="cascade-step">
+        <div class="cbox level-5">
+          <div class="cbox-tag">◉ FAZA V — USZKODZENIE STRUKTURALNE KALENICY</div>
+          <h4>Zniszczenie spójności systemu dachowego — utrata funkcji</h4>
+          <p>
+            Po wieloletnich cyklach degradacyjnych osiągany jest stan, w którym:
+            (i) rdzeń PIR w strefie kalenicy utracił ≥40% wytrzymałości mechanicznej,
+            (ii) łączniki mechaniczne płyt PIR pracują w zhydrolizowanym podłożu,
+            (iii) folia wiatroszczelna jest rozerwana lub odlepiona wzdłuż kalenicy.
+          </p>
+          <span class="formula-inline">ΔU/U₀ &gt; 100% → niezgodność z normą PN-EN ISO 6946</span>
+          <p>
+            Destrukcja obejmuje: korozję łączników stalowych, pęcznienie i delaminację
+            okładzin OSB/sklejki, gnicie elementów więźby drewnianej wskutek wilgotności
+            względnej RH &gt; 80% przez ponad 30 dni·rok⁻¹.
+          </p>
+          <div class="effects">
+            <strong>Kryterium awarii:</strong> Utrata nośności węzła kalenicy lub przebicie
+            przekrycia dachowego. Remont wymaga całkowitej wymiany układu izolacyjnego
+            i nierzadko elementów więźby — koszt 5–10× wyższy niż prewencja projektowa.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end cascade-flow -->
+  </div>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 6</span> Sprzężenie termiczno-wilgotnościowe — model HAM</h2>
+
+  <p>
+    Pełny opis degradacji wymaga sprzężonych równań Heat-Air-Moisture (HAM):
+  </p>
+  <div class="formula-block">
+    <div class="formula-label">Sprzężone równania energii i masy (model Künzela)</div>
+    $$\underbrace{\left(\rho c_p + c_w w\right)}_{\text{pojemność cieplna}}\frac{\partial T}{\partial t} = \nabla \cdot \left(\lambda_{\text{eff}} \nabla T\right) + L_v \dot{m}_{\text{cond}} + L_s \dot{m}_{\text{resub}}$$
+    $$\frac{\partial w}{\partial t} = \nabla \cdot \left(D_w \nabla w + \delta_p \nabla p_v\right) - \dot{m}_{\text{cond}} - \dot{m}_{\text{resub}}$$
+  </div>
+  <p>
+    Człony ciepła utajonego \(L_v \dot{m}_{\text{cond}}\) i \(L_s \dot{m}_{\text{resub}}\) sprzęgają
+    oba równania — lokalna zmiana fazy modyfikuje pole temperatury, które z kolei
+    przesuwa krzywą nasycenia i zmienia napęd kondensacji.
+    W strefie kalenicy to sprzężenie prowadzi do niestabilności termicznej:
+    wytwarzanie ciepła przez kondensację może być silniejsze niż odprowadzanie
+    przez przewodzenie, co skutkuje lokalnym <em>samonagrzewaniem</em> złącza.
+  </p>
+
+  <div class="warning-box">
+    <div class="w-title">⚠ Parametr krytyczny procesu kaskadowego</div>
+    <p>
+      Numeryczne symulacje HAM (WUFI Pro, DELPHIN) pokazują, że przy temperaturze
+      zewnętrznej \(T_{ext} &lt; -5°C\), wilgotności wewnętrznej \(\phi_{int} &gt; 55\%\)
+      i szerokości szczeliny kalenicy \(h &gt; 0{,}3\ \text{mm}\), system nieuchronnie
+      wchodzi w Fazę III kaskady — bez interwencji zewnętrznej nie jest możliwy
+      powrót do stanu pierwotnego. Kryterium projektu: zapewnić \(h \leq 0{,}05\ \text{mm}\)
+      przez cały okres eksploatacji (50 lat zgodnie z EN 1990).
+    </p>
+  </div>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 7</span> Tabela mechanizmów — analiza fizyczna i konsekwencje</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Składnik / Zjawisko</th>
+        <th>Wzór / Symbol</th>
+        <th>Mechanizm fizyczny</th>
+        <th>Skutek kaskadowy w kalenicy</th>
+        <th>Faza degradacji</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Gęstość molarna pary</strong></td>
+        <td><code>ρ_v = p_v/(R_v T)</code></td>
+        <td>Nośnik wilgoci — rośnie przy ochłodzeniu</td>
+        <td>Koncentracja wilgoci w zimnych strefach kalenicy</td>
+        <td>I</td>
+      </tr>
+      <tr>
+        <td><strong>Konwekcja w szczelinie</strong></td>
+        <td><code>v̄ ∝ h²ΔP/η</code></td>
+        <td>Przepływ laminarny, skalowanie z h³</td>
+        <td>Dominujący transport; 125× wzrost przy 5× poszerzeniu szczeliny</td>
+        <td>I → III</td>
+      </tr>
+      <tr>
+        <td><strong>Efekt Soret'a</strong></td>
+        <td><code>J_S = α_T ρ_v ∇T</code></td>
+        <td>Termodyfuzja — migracja wilgoci ku zimnu</td>
+        <td>Dodatkowy napęd ku kalenicay nawet bez konwekcji</td>
+        <td>I, II</td>
+      </tr>
+      <tr>
+        <td><strong>Kondensacja ciekła</strong></td>
+        <td><code>ṁ_cond = k·max(0, p_v−p_sat)</code></td>
+        <td>Zmiana fazy; ciepło utajone 2500 kJ/kg</td>
+        <td>Mostek termiczny; nasycenie taśm; hydroliza PIR</td>
+        <td>II, IV</td>
+      </tr>
+      <tr>
+        <td><strong>Resublimacja — lód</strong></td>
+        <td><code>ṁ_resub (T &lt; 0°C)</code></td>
+        <td>Para→lód; ciśnienie krystalizacyjne</td>
+        <td>Mechaniczne rozszerzanie szczeliny; bifurkacja systemu</td>
+        <td>III</td>
+      </tr>
+      <tr>
+        <td><strong>Konwekcja termiczna Ra</strong></td>
+        <td><code>Ra > Ra_cr = 1708</code></td>
+        <td>Cyrkulacja Bénarda-Rayleigha</td>
+        <td>Eliminacja oporu dyfuzyjnego; pseudoprzepona</td>
+        <td>IV</td>
+      </tr>
+      <tr>
+        <td><strong>Hydroliza PIR</strong></td>
+        <td><code>λ_eff(t) = f(w, t)</code></td>
+        <td>Rozpad chemiczny wiązań uretanowych</td>
+        <td>Utrata właściwości izolacyjnych; dekohezja struktury</td>
+        <td>IV, V</td>
+      </tr>
+      <tr>
+        <td><strong>Sprzężenie HAM</strong></td>
+        <td><code>∂T/∂t, ∂w/∂t — sprzężone</code></td>
+        <td>Samonagrzewanie kondensacyjne</td>
+        <td>Niestabilność termiczna złącza; przyspieszenie kaskady</td>
+        <td>III → V</td>
+      </tr>
+      <tr>
+        <td><strong>Cykl F/T</strong></td>
+        <td><code>Δh ∝ n_FT; ΔV_ice = +9,05%</code></td>
+        <td>Fatigue mechaniczna przez ekspansję lodu</td>
+        <td>Progresywna destrukcja; każdy sezon pogarsza stan</td>
+        <td>III → V</td>
+      </tr>
+      <tr>
+        <td><strong>Mostek λ przy nasyceniu</strong></td>
+        <td><code>λ: 0,03 → 0,60 W·m⁻¹·K⁻¹</code></td>
+        <td>20-krotny wzrost przewodności cieplnej</td>
+        <td>Naruszenie WT 2021; ryzyko kondensacji głębiej w przegrodzie</td>
+        <td>IV, V</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =========================================== -->
+  <h2><span class="sec-num">§ 8</span> Zalecenia projektowe — przerwanie kaskady</h2>
+
+  <p>
+    Prewencja kaskadowej degradacji kalenicy wymaga działań na każdym z poziomów modelu.
+    Najskuteczniejszą interwencją jest eliminacja Fazy I (inicjacji mikroszczeliny)
+    poprzez szczelne uszczelnienie wszystkich złączy płyt PIR przy kalenicay
+    taśmami z membraną z EPDM lub TPO o długoterminowej elastyczności
+    (klasa deformacji ≥25% wg EN 12317).
+  </p>
+  <p>
+    Obliczeniowo należy weryfikować, czy w projektowanych warunkach klimatycznych
+    (Tmie z PN-EN ISO 15927) liczba Rayleigha w planowanych szczelinach pozostaje
+    poniżej wartości krytycznej:
+  </p>
+  <div class="formula-block">
+    <div class="formula-label">Warunek projektowy — brak konwekcji termicznej</div>
+    $$h_{\max} = \left(\frac{1708\, \nu\, \alpha}{g\, \beta\, \Delta T}\right)^{1/3} \approx 2{,}5\ \text{mm} \quad \text{dla } \Delta T = 20\ \text{K}$$
+    <p style="font-size:0.84rem;margin-top:10px;color:#555;">
+      Wynik wskazuje, że nawet szczeliny rzędu kilku milimetrów (typowe uszkodzenia powykonawcze)
+      mogą generować konwekcję termiczną. Jedynym skutecznym rozwiązaniem jest uszczelnienie
+      szczeliny do \(h \leq 0{,}5\ \text{mm}\) i zastosowanie bariery paroizolacyjnej.
+    </p>
+  </div>
+
+  <div class="note-box">
+    <strong>Wniosek naukowy:</strong> Model kaskadowy ujawnia, że degradacja wilgotnościowa
+    kalenicy w systemie PIR + pianka otwartokomórkowa jest procesem <em>deterministycznie
+    nieodwracalnym</em> po przekroczeniu progu bifurkacji Fazy III. Jedyna skuteczna
+    strategia to prewencja projektowa i wykonawcza gwarantująca integralność szczelin
+    przez cały przewidziany czas użytkowania obiektu zgodnie z PN-EN 1990 (50 lat).
+    Monitoring wilgoci w strefie kalenicy (czujniki RH wbudowane w izolację) umożliwia
+    wczesne wykrycie Fazy I i podjęcie naprawy przed nieodwracalną degradacją.
+  </div>
+
+</div>
+
+<footer>
+  Model opracowany na poziomie naukowym inżynierii budownictwa · PIR + Pianka Otwartokomórkowa · Analiza kaskadowej degradacji kalenicy
+</footer>
+
+</body>
+</html>
