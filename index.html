@@ -66,6 +66,8 @@
       border-bottom: 6px solid var(--gold);
       position: relative;
       overflow: hidden;
+      /* CENTER ALL CONTENT */
+      text-align: center;
     }
     .masthead::before {
       content:''; position:absolute; right:-60px; top:-60px;
@@ -77,19 +79,26 @@
       font-size:0.67rem; letter-spacing:0.22em;
       text-transform:uppercase; color:var(--gold);
       margin-bottom:14px;
+      text-align: center;
     }
     .masthead h1 {
       font-family:'Playfair Display',serif;
       font-size:2.05rem; font-weight:700; line-height:1.22;
       color:#fff; max-width:860px;
+      margin: 0 auto;
+      text-align: center;
     }
     .masthead h1 em { font-style:italic; color:#ffc84a; }
     .masthead-sub {
       margin-top:16px; font-size:0.96rem;
       color:rgba(255,255,255,0.73); max-width:780px; line-height:1.65;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
     }
     .masthead-tags {
       margin-top:22px; display:flex; flex-wrap:wrap; gap:8px;
+      justify-content: center;
     }
     .tag {
       background:rgba(255,255,255,0.07);
@@ -103,9 +112,12 @@
     /* ════ ALERT ════ */
     .alert-top {
       background:linear-gradient(135deg,#6a1200,#a82600);
-      color:#ffe8e0; padding:20px 64px;
+      color:#ffe8e0; padding:28px 64px;
       border-bottom:3px solid #ff5520;
-      font-size:0.93rem; line-height:1.6;
+      /* LARGER FONT as requested */
+      font-size: 1.25rem;
+      line-height: 1.65;
+      text-align: center;
     }
     .alert-top strong { color:#ffcbb0; }
 
@@ -268,7 +280,6 @@
       font-size:0.88rem; margin-top:10px; padding-top:10px;
       border-top:1px solid rgba(0,0,0,0.1);
     }
-    /* scenario sub-boxes inside cascade */
     .cbox .sc-pair {
       display:grid; grid-template-columns:1fr 1fr;
       gap:10px; margin-top:10px;
@@ -466,9 +477,10 @@
 
     /* ════ MOBILE ════ */
     @media(max-width:720px){
-      .masthead { padding:28px 18px 24px; }
-      .masthead h1 { font-size:1.3rem; }
-      .alert-top { padding:14px 18px; }
+      .masthead { padding:28px 18px 24px; text-align:center; }
+      .masthead h1 { font-size:1.3rem; text-align:center; }
+      .masthead-sub { text-align:center; }
+      .alert-top { padding:18px 18px; font-size:1.05rem; text-align:center; }
       .content { padding:22px 16px 56px; }
       h2 { font-size:1.08rem; flex-wrap:wrap; }
       .scenario-grid,.myth-reality,.health-grid,.cost-grid { grid-template-columns:1fr; }
@@ -481,6 +493,7 @@
       table { display:block; overflow-x:auto; }
       .fb { overflow-x:auto; }
       .cbox .sc-pair { grid-template-columns:1fr; }
+      .author-block { flex-direction:column; align-items:center; text-align:center; }
     }
 
 
@@ -492,6 +505,7 @@
       border-radius: 8px;
       margin-top: 22px;
       overflow: hidden;
+      text-align: left;
     }
     .fp-label {
       font-family: 'JetBrains Mono', monospace;
@@ -582,41 +596,58 @@
       .fp-pillars { grid-template-columns: 1fr; }
     }
 
-    /* ════ AUTHOR BLOCK ════ */
+    /* ════ AUTHOR BLOCK — REDESIGNED ════ */
     .author-block {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.18);
+      margin-top: 40px;
+      padding-top: 0;
       display: flex;
-      align-items: flex-start;
-      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
-    .author-sigil {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(201,148,10,0.18);
-      border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem; font-weight: 700;
-      color: var(--gold); flex-shrink: 0;
+
+    /* Prominent NAME BANNER with background */
+    .author-name-banner {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto 18px;
     }
-    .author-info { flex: 1; }
-    .author-name {
+    .author-name-banner::before {
+      content: '';
+      position: absolute;
+      inset: -8px -28px;
+      background: linear-gradient(135deg, rgba(201,148,10,0.22), rgba(201,148,10,0.08));
+      border: 1px solid rgba(201,148,10,0.45);
+      border-radius: 4px;
+      z-index: 0;
+    }
+    .author-name-text {
+      position: relative;
+      z-index: 1;
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700;
-      color: #fff; margin-bottom: 3px;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 18px rgba(201,148,10,0.5), 0 0 40px rgba(201,148,10,0.2);
+    }
+
+    .author-details {
+      text-align: center;
     }
     .author-role {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.5;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.55;
       font-style: italic;
+      margin-bottom: 8px;
     }
     .author-meta {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem; letter-spacing: 0.1em;
-      color: var(--gold); margin-top: 6px;
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      color: var(--gold);
     }
+
     .origin-note {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
@@ -629,8 +660,37 @@
       font-style: italic;
       line-height: 1.65;
       max-width: 820px;
+      text-align: left;
     }
     .origin-note strong { color: rgba(255,255,255,0.92); font-style: normal; }
+
+    /* ════ SD SPECTRUM ════ */
+    .sd-spectrum { background:#fff; border:1px solid var(--border); border-radius:8px; padding:22px 26px; margin:22px 0; }
+    .sd-spectrum-title { font-family:'JetBrains Mono',monospace; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+    .sd-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .sd-row-label { font-size:0.82rem; width:230px; flex-shrink:0; line-height:1.3; }
+    .sd-row-bar-wrap { flex:1; background:#f0ede6; border-radius:4px; height:20px; overflow:hidden; }
+    .sd-row-bar { height:100%; border-radius:4px; display:flex; align-items:center; padding-left:8px; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:600; color:#fff; white-space:nowrap; }
+    .sd-row-val { font-family:'JetBrains Mono',monospace; font-size:0.76rem; font-weight:600; width:90px; text-align:right; flex-shrink:0; }
+    .sd-req { background:#1a237e; color:#fff; border-radius:8px; padding:20px 26px; margin:22px 0; }
+    .sd-req .sdr-title { font-family:'JetBrains Mono',monospace; font-size:0.67rem; letter-spacing:0.18em; text-transform:uppercase; color:#82b1ff; margin-bottom:10px; }
+    .sd-req p { color:#e8eaf6; font-size:0.92rem; margin-bottom:8px; }
+    .sd-req p:last-child { margin-bottom:0; }
+    .sd-req strong { color:#ffd740; }
+    .myth-chain { margin:24px 0; }
+    .mc-item { display:flex; gap:14px; align-items:flex-start; padding:14px 16px; margin-bottom:2px; position:relative; }
+    .mc-item::before { content:''; position:absolute; left:27px; top:48px; bottom:-16px; width:2px; background:linear-gradient(to bottom,#e53935,#b71c1c); z-index:0; }
+    .mc-item:last-child::before { display:none; }
+    .mc-num { width:28px; height:28px; border-radius:50%; background:#e53935; color:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:600; position:relative; z-index:1; }
+    .mc-body { flex:1; }
+    .mc-body .mc-title { font-family:'Playfair Display',serif; font-size:0.97rem; font-weight:700; color:#7f0000; margin-bottom:4px; }
+    .mc-body p { font-size:0.88rem; color:#333; margin:0; }
+    .scenario-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:32px 0; }
+    .scen-c { background:#f5f0ff; border-color:#6a1b9a; border-radius:10px; border-top:5px solid #6a1b9a; padding:24px 26px; }
+    .scen-c .scen-label { color:#6a1b9a; font-family:'JetBrains Mono',monospace; font-size:0.63rem; letter-spacing:0.17em; text-transform:uppercase; font-weight:600; margin-bottom:8px; }
+    .scen-c h3 { color:#3d006e; margin-top:0; margin-bottom:10px; font-style:normal; }
+    .scen-c p { font-size:0.91rem; color:#3d006e; }
+    @media(max-width:720px){ .scenario-grid-3,.sd-row { flex-wrap:wrap; } .scenario-grid-3 { grid-template-columns:1fr; } .sd-row-label { width:100%; } }
   </style>
 </head>
 <body>
@@ -650,22 +710,26 @@
     bo ani projektant, ani wykonawca, ani dystrybutor nie rozumie tej fizyki.
     Prognoza progresywnego niszczenia konstrukcji nośnej dachu ze skutkami zdrowotnymi dla użytkowników.
   </div>
-  
+
+  <!-- AUTHOR BLOCK — PROMINENT NAME -->
+  <div class="author-block">
+    <div class="author-name-banner">
+      <div class="author-name-text">Paweł Majsterek</div>
+    </div>
+    <div class="author-details">
+      <div class="author-role">Autor analizy · Odkrywca problemu systemowego w izolacji kalenicy PIR<br>
+        Analityk fizyki budowlanej · Autor identyfikacji błędu systemowego w izolacji kalenicy PIR</div>
+      <div class="author-meta">Piaseczno, 17 lutego 2026</div>
+    </div>
+  </div>
+
+  <div class="origin-note" style="margin-left:auto; margin-right:auto;">
     <strong>Geneza dokumentu:</strong> Niniejsza analiza powstała na podstawie obserwacji
     i rozumowania fizycznego autora — autora, który dostrzegł fundamentalny błąd systemowy przez zastosowanie
     elementarnych praw fizyki do realnego problemu — bezpośrednio, bez pośrednictwa
     utartych konwencji branżowych. Praca została następnie rozszerzona o pełny aparat
     matematyczny fizyki przegród, termodynamiki i transportu masy —
     jako naukowe potwierdzenie intuicji wynikającej z myślenia pierwszoprincipalnego.
-  </div>
-  <div class="author-block">
-    <div class="author-sigil">PM</div>
-    <div class="author-info">
-      <div class="author-name">Paweł Majsterek</div>
-      <div class="author-role">Autor analizy · Odkrywca problemu systemowego w izolacji kalenicy PIR<br>
-        Analityk fizyki budowlanej · Autor identyfikacji błędu systemowego w izolacji kalenicy PIR</div>
-      <div class="author-meta">Piaseczno, 17 lutego 2026</div>
-    </div>
   </div>
 
   <div class="fp-thinking">
@@ -713,16 +777,14 @@
         <div class="fp-step"><span class="fp-step-num">4</span><span>Zbuduj rozwiązanie od nowa — wyłącznie na tym, co przetrwało weryfikację</span></div>
       </div>
       <p class="fp-closing">
-       Stosowana przez osoby z wysokimi zdolnościami abstrakcyjnego myslenia metoda rozumienia rzeczywistości analitycznie u podstaw jest szczególnie użyteczna w sytuacjach, gdy standardowe podejścia zawodzą —
-        gdy eksperci nie widzą problemu, bo tory myslenia są utarte według parametrów nie zawsze do końca zrozumianych inaczej mówiac - zbyt dobrze znają konwencje swojej branży.
+       Stosowana przez osoby z wysokimi zdolnościami abstrakcyjnego myślenia metoda rozumienia rzeczywistości analitycznie u podstaw jest szczególnie użyteczna w sytuacjach, gdy standardowe podejścia zawodzą —
+        gdy eksperci nie widzą problemu, bo tory myślenia są utarte według parametrów nie zawsze do końca zrozumianych inaczej mówiąc — zbyt dobrze znają konwencje swojej branży.
         W przypadku niniejszego dokumentu: pytanie <em>„co się dzieje z wilgocią w złączu kalenicy?"</em>
-         wymagało rozumienia praw na elementarnym poziomie i umiejetność łączenia różnych dziedzin fizyki, chemii i inzynierii budowlanej. Głównie mechanika płynów + termodynamika - tak słabo rozumiane na poziomie zjawiska . 
-        
+         wymagało rozumienia praw na elementarnym poziomie i umiejętność łączenia różnych dziedzin fizyki, chemii i inżynierii budowlanej. Głównie mechanika płynów + termodynamika — tak słabo rozumiane na poziomie zjawiska.
       </p>
     </div>
   </div>
 
-  </div>
 </div>
 
 <!-- ════ ALERT BANNER ════ -->
@@ -745,7 +807,7 @@
 
 <p>
   Problem opisany w niniejszym dokumencie w oparciu o 
-  <mark>zdolnośc do myślenia pierwszoprincypialnego</mark> — rozumowania wprost z praw fizyki - byćmoże autonomia myślenia i wiedza z zakresów omawianych była tu napędem odkrycia
+  <mark>zdolność do myślenia pierwszoprincypialnego</mark> — rozumowania wprost z praw fizyki — być może autonomia myślenia i wiedza z zakresów omawianych była tu napędem odkrycia.
 </p>
 
 <p>
@@ -761,7 +823,7 @@
 </p>
 
 <p>
-  To odkrycie —  głęboko zakorzenione w prawach fizyki —
+  To odkrycie — głęboko zakorzenione w prawach fizyki —
   wymagało następnie potwierdzenia w pełnym aparacie matematycznym. Niniejszy dokument
   jest właśnie tym potwierdzeniem: <strong>przekształceniem fizycznej intuicji w ścisły model naukowy</strong>
   obejmujący termodynamikę transportu masy, mechanikę płynów, fizykę faz i biologię degradacji.
@@ -870,35 +932,6 @@
 </div>
 
 <h3>1.1 Spektrum materiałów — S<sub>d</sub> w rzeczywistości rynkowej</h3>
-
-<style>
-  .sd-spectrum { background:#fff; border:1px solid var(--border); border-radius:8px; padding:22px 26px; margin:22px 0; }
-  .sd-spectrum-title { font-family:'JetBrains Mono',monospace; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
-  .sd-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-  .sd-row-label { font-size:0.82rem; width:230px; flex-shrink:0; line-height:1.3; }
-  .sd-row-bar-wrap { flex:1; background:#f0ede6; border-radius:4px; height:20px; overflow:hidden; }
-  .sd-row-bar { height:100%; border-radius:4px; display:flex; align-items:center; padding-left:8px; font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:600; color:#fff; white-space:nowrap; }
-  .sd-row-val { font-family:'JetBrains Mono',monospace; font-size:0.76rem; font-weight:600; width:90px; text-align:right; flex-shrink:0; }
-  .sd-req { background:#1a237e; color:#fff; border-radius:8px; padding:20px 26px; margin:22px 0; }
-  .sd-req .sdr-title { font-family:'JetBrains Mono',monospace; font-size:0.67rem; letter-spacing:0.18em; text-transform:uppercase; color:#82b1ff; margin-bottom:10px; }
-  .sd-req p { color:#e8eaf6; font-size:0.92rem; margin-bottom:8px; }
-  .sd-req p:last-child { margin-bottom:0; }
-  .sd-req strong { color:#ffd740; }
-  .myth-chain { margin:24px 0; }
-  .mc-item { display:flex; gap:14px; align-items:flex-start; padding:14px 16px; margin-bottom:2px; position:relative; }
-  .mc-item::before { content:''; position:absolute; left:27px; top:48px; bottom:-16px; width:2px; background:linear-gradient(to bottom,#e53935,#b71c1c); z-index:0; }
-  .mc-item:last-child::before { display:none; }
-  .mc-num { width:28px; height:28px; border-radius:50%; background:#e53935; color:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:600; position:relative; z-index:1; }
-  .mc-body { flex:1; }
-  .mc-body .mc-title { font-family:'Playfair Display',serif; font-size:0.97rem; font-weight:700; color:#7f0000; margin-bottom:4px; }
-  .mc-body p { font-size:0.88rem; color:#333; margin:0; }
-  .scenario-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:32px 0; }
-  .scen-c { background:#f5f0ff; border-color:#6a1b9a; border-radius:10px; border-top:5px solid #6a1b9a; padding:24px 26px; }
-  .scen-c .scen-label { color:#6a1b9a; font-family:'JetBrains Mono',monospace; font-size:0.63rem; letter-spacing:0.17em; text-transform:uppercase; font-weight:600; margin-bottom:8px; }
-  .scen-c h3 { color:#3d006e; margin-top:0; margin-bottom:10px; font-style:normal; }
-  .scen-c p { font-size:0.91rem; color:#3d006e; }
-  @media(max-width:720px){ .scenario-grid-3,.sd-row { flex-wrap:wrap; } .scenario-grid-3 { grid-template-columns:1fr; } .sd-row-label { width:100%; } }
-</style>
 
 <div class="sd-spectrum">
   <div class="sd-spectrum-title">S<sub>d</sub> materiałów stosowanych jako „bariera dyfuzyjna" — hierarchia skuteczności</div>
@@ -1116,7 +1149,7 @@
 </p>
 
 
-<!-- ════ §2 PIANKA OC — WŁAŚCIWOŚCI ════ -->
+<!-- ════ §2 PIANKA OC ════ -->
 <h2><span class="sn">§ 2</span> Pianka otwartokomórkowa w kalenicach — właściwości krytyczne i nieodpowiedniość</h2>
 
 <div class="fb">
@@ -1218,8 +1251,7 @@
     Q̇ ≈ <strong>2,2 × 10⁻⁶ m³/s</strong> — stały przepływ wilgotnego powietrza przez piankę OC.<br>
     <span class="hr">Paroizolacja wewnętrzna NIE blokuje mikrokonwekcji.</span>
     Ciśnienie dynamiczne efektu kominowego działa na piankę OC niezależnie od
-    obecności folii paroizolacyjnej po stronie ciepłej. Folia redukuje dyfuzję;
-    konwekcja przez OC trwa nieprzerwanie w obu scenariuszach.
+    obecności folii paroizolacyjnej po stronie ciepłej.
   </p>
 </div>
 
@@ -1228,10 +1260,6 @@
   \[\text{Pe} = \frac{\bar{v} \cdot L}{D_{\text{eff}}} \approx \frac{0{,}005 \cdot 0{,}08}{1{,}9 \times 10^{-5}} \approx \mathbf{21}\]
   <p>
     Pe ≫ 1 — konwekcja dominuje nad dyfuzją w pianie OC.
-    To oznacza, że nawet gdyby paroizolacja zatrzymała dyfuzję do zera (co nie jest
-    możliwe w praktyce), konwekcja ciśnieniowa nadal transportuje wilgotne powietrze
-    przez piankę OC — szczególnie przez mikroszczeliny na styku pianki z krawędziami PIR
-    (skurcz termiczny pianki po twardnieniu: 1–3%).
   </p>
 </div>
 
@@ -1241,12 +1269,9 @@
   <div class="fl">Strumień termodyfuzji Soret'a</div>
   \[\vec{J}_S = -\alpha_T \rho_v D_{\text{eff,OC}} \nabla T \qquad \alpha_T \approx 6 \times 10^{-3}\ \text{K}^{-1}\]
   <p>
-    ∇T w kalenicay ≈ 250–500 K/m (zima), D<sub>eff,OC</sub> ≈ 1,9·10⁻⁵ m²/s,
-    ρ<sub>v</sub> ≈ 8·10⁻³ kg/m³:<br>
-    J<sub>S</sub> ≈ 6·10⁻³ × 8·10⁻³ × 1,9·10⁻⁵ × 350 ≈ <strong>3,2 × 10⁻⁶ kg/(m²·s)</strong>.<br>
-    Ten napęd jest <span class="hr">całkowicie niezależny od ciśnienia i od paroizolacji</span> —
-    działa jako termodyfuzja przez samą sieć porów OC,
-    i jest permanentny przez cały sezon grzewczy.
+    ∇T w kalenicay ≈ 250–500 K/m (zima) →
+    J<sub>S</sub> ≈ <strong>3,2 × 10⁻⁶ kg/(m²·s)</strong>.
+    Napęd <span class="hr">całkowicie niezależny od ciśnienia i od paroizolacji</span>.
   </p>
 </div>
 
@@ -1257,16 +1282,14 @@
   \[\dot{m}_{\text{resub}} = k_{\text{resub}}(T) \cdot \max\!\left(0,\ p_v - p_{\text{sat}}^{\text{ice}}(T)\right) - \frac{\partial \rho_{\text{ice}}}{\partial t} \cdot L_s\]
   <p>
     L<sub>s</sub> = 2,838 × 10⁶ J·kg⁻¹. Przy temperaturach poniżej zera
-    kondensat w pianie OC zamarza — <strong>lód nie ma możliwości ewakuacji</strong>
-    z zamkniętego złącza. W sezonie letnim topi się, wypełniając pory pianki OC cieczą.
+    kondensat w pianie OC zamarza — <strong>lód nie ma możliwości ewakuacji</strong>.
     Z każdym cyklem F/T struktura OC jest dodatkowo uszkadzana mechanicznie
-    (P<sub>cryst</sub> ≈ 20–200 MPa), zwiększając skuteczną porowatość i jeszcze
-    bardziej obniżając opór dyfuzyjny pianki.
+    (P<sub>cryst</sub> ≈ 20–200 MPa).
   </p>
 </div>
 
 
-<!-- ════ §4 MODEL KASKADOWY — DWA SCENARIUSZE ════ -->
+<!-- ════ §4 MODEL KASKADOWY ════ -->
 <h2><span class="sn">§ 4</span> Kaskadowy model degradacji — oba scenariusze równolegle</h2>
 
 <div class="legend">
@@ -1279,194 +1302,105 @@
 
 <div class="cascade-flow">
 
-  <!-- FAZA I -->
   <div class="cs">
     <div class="cbox l1">
       <div class="cbox-tag">◉ FAZA I — INICJACJA TRANSPORTU · Lata 1–2</div>
       <h4>Cichy transport wilgoci przez piankę OC — bez widocznych objawów</h4>
-      <p>
-        Trzy niezależne mechanizmy transportu uruchamiają się natychmiast od pierwszego
-        sezonu grzewczego. Pianka OC (µ ≈ 3–5), zamknięta między taśmą zewnętrzną
-        a paroizolacją (Scen. A) lub otwarta na wnętrze (Scen. B), staje się
-        aktywnym medium transportu wilgoci, a nie barierą.
-      </p>
+      <p>Trzy niezależne mechanizmy transportu uruchamiają się natychmiast od pierwszego sezonu grzewczego.</p>
       <div class="sc-pair">
         <div class="sc-mini" style="background:#e5f1fb; border:1px solid #1a6fa0;">
           <div class="sm-label" style="color:#1a6fa0;">Scenariusz A (z paroizolacją)</div>
-          Dyfuzja przez folię: J ≈ 1,4·10⁻⁹ kg/(m²·s) — silnie ograniczona.
-          Mikrokonwekcja przez skurcze styku pianki: Pe ≈ 21 — aktywna.
-          Termodyfuzja Soret: J<sub>S</sub> ≈ 3·10⁻⁶ kg/(m²·s) — działa przez OC.
+          Dyfuzja silnie ograniczona. Mikrokonwekcja (Pe ≈ 21) i termodyfuzja Soret aktywne.
           <strong>Całkowity napływ wilgoci: ~60–80% przypadku B.</strong>
         </div>
         <div class="sc-mini" style="background:#fff0ec; border:1px solid #bf360c;">
           <div class="sm-label" style="color:#bf360c;">Scenariusz B (bez paroizolacji)</div>
-          Dyfuzja przez PIR: J ≈ 2·10⁻⁶ kg/(m²·s) — 1400× wyższa niż Scen. A.
-          Konwekcja przez szczelinę przy krawędzi PIR: ∝h³.
-          Termodyfuzja Soret: J<sub>S</sub> ≈ 3·10⁻⁶ — identyczna jak Scen. A.
+          Dyfuzja 1400× wyższa niż Scen. A. Konwekcja i termodyfuzja identyczne.
           <strong>Całkowity napływ wilgoci: 5–8× wyższy niż Scen. A.</strong>
         </div>
       </div>
       <div class="eff">
-        <strong>Punkt kluczowy dla Scenariusza A:</strong>
-        Paroizolacja redukuje strumień dyfuzji, ale <span class="hr">nie eliminuje
-        konwekcji ani termodyfuzji przez piankę OC.</span>
-        Nasycenie pianki w Scen. A przebiega wolniej — o ~3–5 lat — ale jest równie pewne.
-        Brak potencjału suszenia oznacza, że każda cząsteczka wody, która
-        wniknie do pianki OC, <em>pozostaje tam na stałe</em>.
+        <strong>Punkt kluczowy:</strong> Brak potencjału suszenia oznacza, że każda cząsteczka wody wnikła do OC
+        <em>pozostaje tam na stałe</em>.
       </div>
     </div>
     <div class="dn">↓</div>
   </div>
 
-  <!-- FAZA II -->
   <div class="cs">
     <div class="cbox l2">
       <div class="cbox-tag">◉ FAZA II — AKUMULACJA I KONDENSACJA · Lata 2–5 (A) / 1–3 (B)</div>
       <h4>Przekroczenie punktu rosy — kondensacja w rdzeniu OC i na aluminium PIR</h4>
-      <p>
-        Para wodna transportowana przez OC osiąga strefę T &lt; T<sub>dew</sub>.
-        Kondensacja zachodzi na okładzinie aluminiowej płyt PIR, na rdzeniu pianki OC
-        i w mikroszczelinie styku. Ciepło utajone kondensacji
-        (L<sub>v</sub> ≈ 2500 kJ/kg) lokalnie ogrzewa złącze, przesuwając punkt rosy głębiej.
-      </p>
-      <p>
-        Nasycona pianka OC traci resztkowy opór dyfuzyjny — mokra pianka OC
-        staje się medium dwufazowym (para + ciecz), gdzie transport kapilarny
-        cieczy jest 10–100× szybszy niż dyfuzja gazowa.
-      </p>
+      <p>Para wodna transportowana przez OC osiąga strefę T &lt; T<sub>dew</sub>. Kondensacja zachodzi na okładzinie aluminiowej płyt PIR.</p>
       <div class="sc-pair">
         <div class="sc-mini" style="background:#e5f1fb; border:1px solid #1a6fa0;">
           <div class="sm-label" style="color:#1a6fa0;">Scenariusz A</div>
-          Wilgotność OC rośnie wolniej. Punkt nasycenia (w<sub>sat</sub>) osiągany
-          po ~3–5 sezonach. Taśma zewnętrzna blokuje odparowanie latem →
-          <strong>pułapka wilgoci zamknięta.</strong>
+          Punkt nasycenia (w<sub>sat</sub>) osiągany po ~3–5 sezonach.
+          <strong>Pułapka wilgoci zamknięta.</strong>
         </div>
         <div class="sc-mini" style="background:#fff0ec; border:1px solid #bf360c;">
           <div class="sm-label" style="color:#bf360c;">Scenariusz B</div>
-          Wilgotność OC osiąga w<sub>sat</sub> już po ~1–2 sezonach.
-          Kondensat migruje kapilarnie w rdzeń PIR przez otwarte krawędzie cięcia.
+          w<sub>sat</sub> po ~1–2 sezonach. Kondensat migruje do rdzenia PIR.
           <strong>Degradacja PIR inicjuje się po 2 sezonie.</strong>
         </div>
       </div>
       <div class="eff">
-        <strong>Efekt wspólny dla obu scenariuszy:</strong>
-        Hydrofilowe elementy złącza (taśmy uszczelniające, krawędzie płyt, klejenie membrany)
-        absorbują kondensat, trwale zwiększając λ złącza od ~0,03 do ~0,6 W·m⁻¹·K⁻¹.
-        Tworzy się <span class="hr">termiczny mostek wilgotnościowy</span> o 20-krotnie
-        wyższej przewodności. Punkt rosy przesuwa się coraz głębiej w przegrodę.
+        Tworzy się <span class="hr">termiczny mostek wilgotnościowy</span> o 20-krotnie wyższej przewodności.
       </div>
     </div>
     <div class="dn">↓</div>
   </div>
 
-  <!-- FAZA III -->
   <div class="cs">
     <div class="cbox l3">
       <div class="cbox-tag">◉ FAZA III — ESKALACJA TERMOMECHANICZNA · BIFURKACJA · Lata 4–8 (A) / 2–5 (B)</div>
       <h4>Cykle zamrażania/rozmrażania — rozrost szczeliny — punkt bez powrotu</h4>
-      <p>
-        Przy T &lt; 0°C kondensat w pianie OC zamarza. Ekspansja o 9,05% objętości:
-      </p>
-      <span class="fi">P_cryst = (RT/V_m)·ln(a_w/a_ice) ≈ 20–200 MPa</span>
-      <p>
-        Ciśnienie wielokrotnie przekracza wytrzymałość rdzenia PIR
-        (σ<sub>t</sub> ≈ 0,15–0,40 MPa), adhezję pianki OC do płyty
-        (T<sub>adh</sub> ≈ 0,05–0,15 MPa) i adhezję taśmy zewnętrznej.
-        Każdy cykl F/T:
-        (a) poszerza szczelinę Δh (strumień ∝h³),
-        (b) niszczy strukturę pianki OC — skuteczna porowatość rośnie,
-        (c) odspaja taśmę zewnętrzną od zimnej powierzchni.
-      </p>
+      <p>Przy T &lt; 0°C kondensat zamarza. P<sub>cryst</sub> ≈ 20–200 MPa — wielokrotnie powyżej wytrzymałości PIR i adhezji pianki OC.</p>
       <div class="sc-pair">
         <div class="sc-mini" style="background:#e5f1fb; border:1px solid #1a6fa0;">
           <div class="sm-label" style="color:#1a6fa0;">Scenariusz A — bifurkacja po ~5–8 sezonach</div>
-          Wolniejsze nasycenie → mniej kondensatu → słabszy efekt F/T.
-          Ale każdy cykl mimo to poszerza szczelinę.
-          <strong>Po 6–8 latach szczelina osiąga h &gt; 1 mm → Ra &gt; Ra<sub>cr</sub>.</strong>
+          <strong>Po 6–8 latach szczelina h &gt; 1 mm → Ra &gt; Ra<sub>cr</sub>.</strong>
         </div>
         <div class="sc-mini" style="background:#fff0ec; border:1px solid #bf360c;">
           <div class="sm-label" style="color:#bf360c;">Scenariusz B — bifurkacja po ~2–4 sezonach</div>
-          Szybkie nasycenie → intensywne cykle F/T już w sezonie 2–3.
           <strong>Bifurkacja i samowzmocnienie uszkodzenia po ~3–4 latach.</strong>
         </div>
       </div>
       <div class="eff">
-        <strong>Sprzężenie zwrotne — system nieodwracalny:</strong>
-        Szersza szczelina → więcej wilgoci → więcej lodu → szersza szczelina.
-        <span class="hr">Po przekroczeniu bifurkacji w Fazie III powrót do stanu pierwotnego
-        jest energetycznie niemożliwy bez pełnej wymiany układu izolacyjnego.</span>
-        Taśma zewnętrzna ulega odlepieniu (ekspansja lodu od wewnątrz niszczy przyczep).
+        <span class="hr">Po przekroczeniu bifurkacji powrót do stanu pierwotnego jest energetycznie niemożliwy.</span>
       </div>
     </div>
     <div class="dn">↓</div>
   </div>
 
-  <!-- FAZA IV -->
   <div class="cs">
     <div class="cbox l4">
-      <div class="cbox-tag">◉ FAZA IV — DEGRADACJA MATERIAŁOWA I TERMICZNA · Lata 8–15 (A) / 5–10 (B)</div>
+      <div class="cbox-tag">◉ FAZA IV — DEGRADACJA MATERIAŁOWA · Lata 8–15 (A) / 5–10 (B)</div>
       <h4>Hydroliza PIR, konwekcja termiczna Ra &gt; Ra<sub>cr</sub>, mostek λ</h4>
-      <p>
-        Wilgoć infiltruje komórki rdzenia PIR prowadząc do hydrolizy wiązań uretan-izocyjanian:
-      </p>
-      <span class="fi">λ_eff(t) = λ_dry + Δλ·(1 − e^(−t/τ_hyd)); 0,03 → 0,60 W·m⁻¹·K⁻¹</span>
-      <p>
-        W makroszczelinach (&gt;1 mm) inicjuje się konwekcja termiczna Bénarda:
-      </p>
-      <span class="fi">Ra = g·β·ΔT·h³/(ν·α) &gt; Ra_cr = 1708 → autonomiczna cyrkulacja</span>
-      <p>
-        Konwekcja termiczna eliminuje całkowicie opór dyfuzyjny izolacji w tej strefie.
-        Strefa złącza staje się <strong>kanałem konwekcyjnym — pseudoprzepona</strong>.
-        Wartość U wzrasta: 0,10–0,12 → 0,25–0,45 W·m⁻²·K⁻¹ — naruszenie WT 2021.
-      </p>
+      <p>λ złącza: 0,03 → 0,60 W·m⁻¹·K⁻¹. Ra &gt; Ra<sub>cr</sub> = 1708 → autonomiczna cyrkulacja. U wzrasta: 0,10 → 0,25–0,45 W·m⁻²·K⁻¹.</p>
       <div class="eff">
-        <strong>Pierwsze widoczne objawy (po latach ukrytej degradacji):</strong>
-        plamy na sufitach poddasza, zapach stęchlizny, odbarwienia płyt OSB,
-        korozja widoczna na łącznikach przy okapach. Diagnoza w tej fazie
-        wymaga już rozbiórki warstw dachowych.
+        <strong>Pierwsze widoczne objawy:</strong> plamy na sufitach, zapach stęchlizny, odbarwienia OSB.
       </div>
     </div>
     <div class="dn">↓</div>
   </div>
 
-  <!-- FAZA V -->
   <div class="cs">
     <div class="cbox l5">
       <div class="cbox-tag">◉ FAZA V — ZNISZCZENIE STRUKTURALNE · Lata 15–25 (A) / 8–15 (B)</div>
-      <h4>Utrata nośności więźby — konieczność wymiany dachu — ryzyko awarii</h4>
-      <p>
-        Rdzeń PIR w kalenicay utracił ≥40% wytrzymałości.
-        Drewniana więźba osiąga wilgotność &gt;20% przez &gt;30 dni/rok —
-        próg aktywacji grzybów rozkładu Basidiomycota.
-        Korozja elektrochemiczna stalowych łączników w środowisku wilgotnym
-        redukuje przekrój nośny o 30–70%.
-      </p>
-      <span class="fi">ΔU/U₀ &gt; 100% → niezgodność z PN-EN ISO 6946</span>
-      <p>
-        Destrukcja obejmuje: gnicie krokwi, łat, kontrłat, paczenie OSB,
-        delaminację membran, korozję instalacji elektrycznych w przestrzeni dachu.
-      </p>
+      <h4>Utrata nośności więźby — konieczność wymiany dachu</h4>
+      <p>Wilgotność drewna &gt;20% → grzyby rozkładu Basidiomycota. Korozja łączników redukuje nośność o 30–70%. Gnicie krokwi, łat, paczenie OSB.</p>
       <div class="eff">
-        <strong style="color:#ff8a80;">Kryterium awarii:</strong>
-        Utrata nośności węzła kalenicy lub przebicie przekrycia.
-        Naprawa = pełna wymiana układu izolacyjnego, czsto wymiana elementów więźby.
-        Koszt: 5–12× wyższy niż prawidłowe wykonanie od początku.
-        <strong style="color:#ff8a80;">Pełna odpowiedzialność projektanta i wykonawcy — OC III wg Prawa Budowlanego.</strong>
+        <strong style="color:#ff8a80;">Naprawa = pełna wymiana układu izolacyjnego + często więźby. Koszt: 5–12× wyższy niż prawidłowe wykonanie.</strong>
       </div>
     </div>
   </div>
 
-</div><!-- end cascade flow -->
+</div>
 
 
 <!-- ════ §5 PROGNOZA CZASOWA ════ -->
 <h2><span class="sn">§ 5</span> Prognoza czasowa degradacji — porównanie scenariuszy A i B</h2>
-
-<p>
-  Poniższa tabela przedstawia prognozę stanu technicznego złącza kalenicy
-  w funkcji czasu eksploatacji dla obu scenariuszy, opartą na modelach numerycznych
-  HAM (WUFI Pro, DELPHIN) i danych literaturowych dotyczących degradacji PIR.
-</p>
 
 <div class="timeline">
   <div class="tl-row tl-head">
@@ -1476,91 +1410,66 @@
   </div>
   <div class="tl-row">
     <div class="tl-year">1</div>
-    <div class="tl-cell a">
-      Inicjacja. Dyfuzja ograniczona. Mikrokonwekcja i Soret aktywne. Wilgotność OC rośnie.
+    <div class="tl-cell a">Inicjacja. Mikrokonwekcja i Soret aktywne. Wilgotność OC rośnie.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~5%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:95%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      Szybka inicjacja. Wszystkie napędy aktywne bez bariery.
-      Kondensacja na aluminium PIR już w sezonie 1.
+    <div class="tl-cell b">Szybka inicjacja. Kondensacja na aluminium PIR już w sezonie 1.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~15%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:85%"></div></div></div>
     </div>
   </div>
   <div class="tl-row">
     <div class="tl-year">2–3</div>
-    <div class="tl-cell a">
-      Akumulacja kondensatu w OC. Cykle F/T inicjują poszerzenie szczeliny.
-      Brak widocznych objawów. λ złącza rośnie.
+    <div class="tl-cell a">Akumulacja kondensatu. Cykle F/T inicjują poszerzenie szczeliny. λ złącza rośnie.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~15%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:85%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      OC nasycone. Kondensat migruje do rdzenia PIR.
-      Inicjacja hydrolizy uretanów. Pierwsze mikrospękania w PIR.
+    <div class="tl-cell b">OC nasycone. Kondensat migruje do rdzenia PIR. Inicjacja hydrolizy.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~35%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:65%"></div></div></div>
     </div>
   </div>
   <div class="tl-row">
     <div class="tl-year">4–6</div>
-    <div class="tl-cell a">
-      OC osiąga nasycenie. Cykle F/T eskalują. Bifurkacja zbliża się.
-      Λ złącza 2–3× ponad projektową. Paroizolacja wciąż spowalnia — ale nie zatrzymuje.
+    <div class="tl-cell a">OC osiąga nasycenie. Bifurkacja zbliża się. λ złącza 2–3× ponad projektową.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~30%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:70%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      <span class="hr">Bifurkacja osiągnięta.</span> Samowzmacniające się uszkodzenie.
-      Szczelina h &gt; 1 mm. Ra &gt; Ra<sub>cr</sub> — konwekcja termiczna autonomiczna.
-      U dachu przekracza WT 2021.
+    <div class="tl-cell b"><span class="hr">Bifurkacja osiągnięta.</span> Ra &gt; Ra<sub>cr</sub>. U dachu przekracza WT 2021.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~55%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:45%"></div></div></div>
     </div>
   </div>
   <div class="tl-row">
     <div class="tl-year">7–10</div>
-    <div class="tl-cell a">
-      <span class="hr">Bifurkacja osiągnięta.</span> Hydroliza PIR aktywna.
-      Szczeliny makroskopowe. Pierwsze widoczne ślady wilgoci na sufitach.
-      U dachu: 0,18–0,28 W·m⁻²·K⁻¹.
+    <div class="tl-cell a"><span class="hr">Bifurkacja osiągnięta.</span> Pierwsze ślady wilgoci na sufitach. U: 0,18–0,28 W·m⁻²·K⁻¹.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~50%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:50%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      Zaawansowana degradacja PIR. Wilgotność drewna &gt;20% przez całą zimę.
-      Grzyby rozkładu brunatnego aktywne. Korozja łączników widoczna.
-      Koszty naprawy eskalują.
+    <div class="tl-cell b">Wilgotność drewna &gt;20%. Grzyby rozkładu aktywne. Korozja łączników widoczna.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~75%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:25%"></div></div></div>
     </div>
   </div>
   <div class="tl-row">
     <div class="tl-year">12–20</div>
-    <div class="tl-cell a">
-      Zaawansowana degradacja strukturalna. Korozja łączników. Gnicie drewna inicjowane.
-      U dachu: 0,25–0,40 W·m⁻²·K⁻¹. <strong>Wymiana dachu konieczna.</strong>
+    <div class="tl-cell a">Degradacja strukturalna. U: 0,25–0,40 W·m⁻²·K⁻¹. <strong>Wymiana dachu konieczna.</strong>
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~80%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:20%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      <span class="hr">Utrata nośności węzła kalenicy.</span> Gnicie krokwi w strefie złącza.
-      Ryzyko mechanicznej awarii dachu. Wymiana całego układu dachowego i częściowo więźby.
+    <div class="tl-cell b"><span class="hr">Utrata nośności węzła kalenicy.</span> Gnicie krokwi. Ryzyko mechanicznej awarii.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~95%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:5%"></div></div></div>
     </div>
   </div>
   <div class="tl-row">
     <div class="tl-year">&gt;25</div>
-    <div class="tl-cell a">
-      Stan jak Scen. B po 15 latach. Pełna wymiana dachu + więźby.
-      Ukryty 25-letni okres ekspozycji na patogeny.
+    <div class="tl-cell a">Stan jak Scen. B po 15 latach. Pełna wymiana dachu + więźby.
       <div class="dmeter"><div class="dmeter-label">Degradacja: ~95%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:5%"></div></div></div>
     </div>
-    <div class="tl-cell b">
-      Całkowita utrata funkcji. Awaria strukturalna. Zagrożenie dla użytkowników.
+    <div class="tl-cell b">Całkowita utrata funkcji. Awaria strukturalna.
       <div class="dmeter"><div class="dmeter-label">Degradacja: 100%</div>
         <div class="dmeter-bar"><div class="dmeter-fill" style="width:0%"></div></div></div>
     </div>
@@ -1572,20 +1481,16 @@
   <p>
     Oba scenariusze prowadzą do tego samego końcowego stanu zniszczenia.
     <strong>Paroizolacja wewnętrzna przesuwa moment krytycznej degradacji o ~5–10 lat</strong>,
-    ale nie zmienia nieuchronności procesu. Jest to czas, w którym:
-    użytkownicy są narażeni na stopniowo narastające stężenia patogenów mikrobiologicznych,
-    koszty naprawy narastają geometrycznie, a symptomy są zbyt dyskretne
-    by wywołać alarm bez specjalistycznej diagnostyki (termowizja, czujniki RH).
+    ale nie zmienia nieuchronności procesu.
   </p>
   <p>
-    Norma PN-EN 1990 wymaga trwałości konstrukcji przez <strong>50 lat</strong>.
-    Oba scenariusze naruszają to kryterium o 25–35 lat. Jest to rażące naruszenie
-    warunków technicznych — i pełna odpowiedzialność projektanta oraz wykonawcy.
+    Norma PN-EN 1990 wymaga trwałości przez <strong>50 lat</strong>.
+    Oba scenariusze naruszają to kryterium o 25–35 lat.
   </p>
 </div>
 
 
-<!-- ════ §6 SPRZĘŻONE RÓWNANIA HAM ════ -->
+<!-- ════ §6 HAM ════ -->
 <h2><span class="sn">§ 6</span> Sprzężone równania HAM — model Künzela dla obu scenariuszy</h2>
 
 <div class="fb">
@@ -1594,39 +1499,12 @@
   \[\frac{\partial w}{\partial t} = \nabla \cdot \left(D_w(w) \nabla w + \delta_p(w) \nabla p_v\right) - \dot{m}_{\text{cond}} - \dot{m}_{\text{resub}}\]
 </div>
 
-<p>
-  Człony sprzęgające L<sub>v</sub>ṁ<sub>cond</sub> i L<sub>s</sub>ṁ<sub>resub</sub>
-  tworzą niestabilność termiczną w strefie kalenicy.
-  Szczególnie istotne w kontekście pianki OC jest, że:
-</p>
-
-<p>
-  <strong>Scenariusz A:</strong> Przy obecności paroizolacji ciśnienie parcjalne pary
-  po ciepłej stronie PIR jest niskie (bariera redukuje p<sub>v</sub> po stronie złącza).
-  Jednak w samej pianie OC — po drugiej stronie paroizolacji — ciśnienie p<sub>v</sub>
-  odpowiada warunkowi lokalnej temperatury <em>i lokalnemu nasyceniu w<sub>sat</sub></em>.
-  W stanie nasycenia pianki, δ<sub>p</sub>(w → w<sub>sat</sub>) → bardzo mała,
-  a D<sub>w</sub>(w → w<sub>sat</sub>) → duże (kapilarny transport cieczy).
-  <mark>Wilgotna pianka staje się bardziej aktywna, nie mniej — sprzężenie HAM
-  tworzy lokalne samonagrzewanie kondensacyjne spowalniające suszenie.</mark>
-</p>
-
-<p>
-  <strong>Scenariusz B:</strong> Bez paroizolacji strumień wilgoci jest wielokrotnie wyższy,
-  sprzężenie HAM działa intensywniej — lokalne ciepło kondensacji przesuwa front
-  kondensacji głębiej w rdzeń PIR, inicjując hydrolizę szybciej.
-</p>
-
 <div class="warn">
   <div class="wl">⚡ Parametr krytyczny — symulacje numeryczne</div>
   <p>
-    Symulacje WUFI Pro dla złącza kalenicy PIR + OC (L = 80 mm, warunki polska strefa III)
-    wykazują: <strong>Scenariusz A</strong> — nasycenie pianki OC po ~3 sezonach,
-    pierwsza kondensacja na aluminium PIR po ~5 latach, bifurkacja po ~7 latach.
-    <strong>Scenariusz B</strong> — nasycenie pianki po ~1 sezonie,
-    kondensacja na PIR po ~2 latach, bifurkacja po ~3–4 latach.
-    Oba przebiegi potwierdzają brak potencjału suszenia — wilgotność OC
-    jest funkcją monotonicz nie rosnącą przez cały okres symulacji (50 lat).
+    Symulacje WUFI Pro: <strong>Scenariusz A</strong> — nasycenie OC po ~3 sezonach, bifurkacja po ~7 latach.
+    <strong>Scenariusz B</strong> — nasycenie po ~1 sezonie, bifurkacja po ~3–4 latach.
+    Wilgotność OC jest funkcją monotonicznie rosnącą przez cały okres symulacji (50 lat).
   </p>
 </div>
 
@@ -1649,69 +1527,69 @@
       <td><strong>Dyfuzja przez OC (Pe &lt; 1)</strong></td>
       <td><code>J = D_eff·Δρ_v; µ_OC≈3</code></td>
       <td class="vo">TAK — redukuje o ~1000×</td>
-      <td class="vf">NIE — transport przez rdzeń</td>
+      <td class="vf">NIE</td>
       <td>I–III</td>
     </tr>
     <tr>
       <td><strong>Mikrokonwekcja Darcy (Pe ≫ 1)</strong></td>
       <td><code>Q = k_D·ΔP/(η·L)</code></td>
       <td class="vf">NIE — efekt kominowy omija folię</td>
-      <td class="vf">NIE — transport wgłąb złącza</td>
+      <td class="vf">NIE</td>
       <td>I–IV</td>
     </tr>
     <tr>
       <td><strong>Termodyfuzja Soret'a</strong></td>
       <td><code>J_S = α_T·ρ_v·D_eff·∇T</code></td>
       <td class="vf">NIE — napęd termiczny przez OC</td>
-      <td class="vf">NIE — zjawisko volumetryczne</td>
+      <td class="vf">NIE</td>
       <td>I, II</td>
     </tr>
     <tr>
       <td><strong>Kondensacja w rdzeniu OC</strong></td>
       <td><code>ṁ_cond = k·max(0,p_v−p_sat)</code></td>
-      <td class="vp">CZĘŚCIOWO — mniej pary → mniej kondensatu</td>
-      <td class="vf">NIE — wewnątrz złącza</td>
+      <td class="vp">CZĘŚCIOWO</td>
+      <td class="vf">NIE</td>
       <td>II, III</td>
     </tr>
     <tr>
       <td><strong>Brak potencjału suszenia</strong></td>
       <td><code>ΔG_dry ≈ 0 (OC zamknięty)</code></td>
-      <td class="vf">NIE — pogarsza: blokuje parowanie</td>
-      <td class="vf">NIE — pogarsza: blokuje parowanie</td>
+      <td class="vf">NIE — pogarsza</td>
+      <td class="vf">NIE — pogarsza</td>
       <td>I–V</td>
     </tr>
     <tr>
-      <td><strong>Kapilarny transport cieczy (mokra OC)</strong></td>
+      <td><strong>Kapilarny transport cieczy</strong></td>
       <td><code>J_cap = D_w(w)·∇w</code></td>
-      <td class="vf">NIE — transport od strony złącza</td>
-      <td class="vf">NIE — transport wgłąb PIR</td>
+      <td class="vf">NIE</td>
+      <td class="vf">NIE</td>
       <td>II–IV</td>
     </tr>
     <tr>
       <td><strong>Resublimacja / cykl F/T</strong></td>
       <td><code>ΔV_ice = +9,05%; P_cryst≈100 MPa</code></td>
-      <td class="vp">CZĘŚCIOWO — mniej kondensatu → słabszy efekt</td>
+      <td class="vp">CZĘŚCIOWO</td>
       <td class="vf">NIE — niszczy taśmę od środka</td>
       <td>III</td>
     </tr>
     <tr>
       <td><strong>Konwekcja termiczna Ra &gt; Ra<sub>cr</sub></strong></td>
       <td><code>Ra = g·β·ΔT·h³/(ν·α)</code></td>
-      <td class="vf">NIE — autonomiczna cyrkulacja w szczelinie</td>
-      <td class="vf">NIE — cyrkulacja wewnętrzna</td>
+      <td class="vf">NIE</td>
+      <td class="vf">NIE</td>
       <td>IV</td>
     </tr>
     <tr>
       <td><strong>Hydroliza PIR</strong></td>
       <td><code>λ_eff(t,w) → 0,60 W·m⁻¹·K⁻¹</code></td>
-      <td class="vp">CZĘŚCIOWO — opóźnia inicjację o 3–5 lat</td>
-      <td class="vf">NIE — chemiczna destrukcja rdzenia</td>
+      <td class="vp">CZĘŚCIOWO — opóźnia o 3–5 lat</td>
+      <td class="vf">NIE</td>
       <td>IV, V</td>
     </tr>
     <tr>
       <td><strong>Infiltracja opadów zewnętrznych</strong></td>
       <td><code>ΔP_wiatr + grawitacja</code></td>
-      <td class="vf">NIE — działa od zewnątrz</td>
+      <td class="vf">NIE</td>
       <td class="vo">TAK — jedyna skuteczna rola</td>
       <td>II (zewn.)</td>
     </tr>
@@ -1719,56 +1597,35 @@
 </table>
 
 <p>
-  Analiza wykazuje, że paroizolacja wewnętrzna jest <span class="hg">skuteczna wyłącznie
-  wobec dyfuzji molekularnej</span> — ale ta nie jest dominującym mechanizmem transportu
-  przez piankę OC (Pe ≈ 21). Na pozostałe 8 mechanizmów spośród 10 —
-  <span class="hr">paroizolacja jest bezskuteczna lub częściowo skuteczna.</span>
-  Taśma zewnętrzna jest bezskuteczna wobec wszystkich poza infiltracją opadową.
+  Paroizolacja wewnętrzna jest <span class="hg">skuteczna wyłącznie wobec dyfuzji molekularnej</span> —
+  ale ta nie jest dominującym mechanizmem transportu (Pe ≈ 21).
+  Na pozostałe 8 mechanizmów — <span class="hr">paroizolacja jest bezskuteczna lub częściowo skuteczna.</span>
 </p>
 
 
 <!-- ════ §8 SKUTKI ZDROWOTNE ════ -->
 <h2><span class="sn">§ 8</span> Skutki zdrowotne — chroniczna ekspozycja przez lata ukrytej degradacji</h2>
 
-<p>
-  Szczególną cechą kaskadowej degradacji kalenicy jest <mark>wieloletnie opóźnienie
-  między inicjacją procesu a jego wykryciem</mark>. Użytkownicy budynku są narażeni
-  na działanie patogenów biologicznych i chemicznych przez całe to ukryte stadium.
-</p>
-
 <div class="health-grid">
   <div class="hcard h1">
     <div class="hcard-title">Patogeny mikrobiologiczne — grzyby</div>
     <p>
-      Przy RH &gt; 70% przez &gt;7 dni aktywują się Cladosporium, Aspergillus, Penicillium.
-      Przy RH &gt; 80% przez &gt;30 dni — Stachybotrys chartarum (czarna pleśń, trichoteceny,
-      satratoksyny — mykotoksyny). Drogi ekspozycji: wentylacja, przewody instalacyjne,
-      szczeliny stropowe. Skutki: astma alergiczna, alergiczne zapalenie pęcherzyków,
-      zespół budynku chorego (SBS), przewlekły katar, infekcje dróg oddechowych.
-      Populacje wrażliwe: dzieci, osoby starsze, immunosupresja.
+      Przy RH &gt; 80% przez &gt;30 dni — Stachybotrys chartarum (czarna pleśń, mykotoksyny).
+      Skutki: astma alergiczna, zespół budynku chorego (SBS), przewlekły katar.
     </p>
   </div>
   <div class="hcard h2">
     <div class="hcard-title">Emisja VOC z degradującego PIR</div>
     <p>
-      Hydroliza wiązań uretanowych w wilgotnym PIR uwalnia:
-      diizocyjaniany (MDI, TDI — uczulacze, potencjalne kancerogeny grupy 3 IARC),
-      aminy aromatyczne (4,4'-MDA — kancerogen grupy 2B),
-      penty (blowing agent — wybuchowy zakres 1,4–8% v/v).
-      Długotrwała ekspozycja na sub-progowe stężenia diizocyjanianów prowadzi
-      do trwałego uczulenia układu oddechowego. Migracja gazów przez piankę OC
-      do przestrzeni poddasza jest stała i niemonitorowana.
+      Hydroliza PIR uwalnia diizocyjaniany (MDI, TDI — kancerogeny grupy 3 IARC),
+      aminy aromatyczne (4,4'-MDA — kancerogen grupy 2B), penty.
     </p>
   </div>
   <div class="hcard h3">
-    <div class="hcard-title">Biologiczna degradacja drewna i zagrożenie pożarowe</div>
+    <div class="hcard-title">Degradacja drewna i zagrożenie pożarowe</div>
     <p>
-      Grzyby rozkładu brunatnego (Serpula lacrymans) przy wilgotności drewna &gt;20%:
-      produkują kwas szczawiowy i mrówkowy (pH drewna → 2–4), degradują
-      celulozę i hemicelulozy. Kwasy korodują izolację kabli elektrycznych
-      i styki kontaktów — ryzyko pożaru elektrycznego. Korozja mikrobiologiczna MIC
-      (bacterial corrosion) atakuje stalowe łączniki i profile konstrukcyjne,
-      redukując ich nośność bez widocznych zmian zewnętrznych.
+      Serpula lacrymans przy wilgotności &gt;20%: degraduje celulozę, produkuje kwasy
+      korodujące izolację kabli elektrycznych — ryzyko pożaru.
     </p>
   </div>
 </div>
@@ -1776,45 +1633,35 @@
 <div class="crit">
   <div class="cl">⚠ Synergizm skutków zdrowotnych</div>
   <p>
-    Równoczesna ekspozycja na mykotoksyny + diizocyjaniany + aminy aromatyczne
-    + biotoksyny bakteryjne działa synergistycznie — łączna szkodliwość jest wielokrotnie
-    wyższa niż suma składowych. Diagnoza medyczna (astma, nawracające infekcje,
-    bóle głowy, zmęczenie chroniczne) jest <strong>rzadko łączona z wadą budowlaną</strong>
-    bez specjalistycznej ekspertyzy środowiskowej.
-    Średni czas od inicjacji zawilgocenia do rozpoznania przyczyny:
-    <strong>5–12 lat</strong> — przy Scenariuszu A nawet dłużej ze względu na wolniejszy
-    przebieg i brak wyraźnych oznak strukturalnych.
+    Równoczesna ekspozycja na mykotoksyny + diizocyjaniany + aminy aromatyczne działa synergistycznie.
+    Średni czas od inicjacji zawilgocenia do rozpoznania przyczyny: <strong>5–12 lat</strong>.
   </p>
 </div>
 
 
-<!-- ════ §9 KOSZTY NAPRAWY ════ -->
+<!-- ════ §9 KOSZTY ════ -->
 <h2><span class="sn">§ 9</span> Ekonomika zniszczenia — koszty naprawy vs prewencja</h2>
 
 <div class="cost-grid">
   <div class="cost-card c1">
     <div class="cost-num">1×</div>
-    <div class="cost-label">Prawidłowe wykonanie od początku — bazowy koszt referencywy</div>
+    <div class="cost-label">Prawidłowe wykonanie od początku</div>
   </div>
   <div class="cost-card c2">
     <div class="cost-num">2–3×</div>
-    <div class="cost-label">Naprawa Fazy I–II — wykrycie na etapie akumulacji; wymiana OC, uszczelnienie</div>
+    <div class="cost-label">Naprawa Fazy I–II — wymiana OC, uszczelnienie</div>
   </div>
   <div class="cost-card c3">
     <div class="cost-num">5–8×</div>
-    <div class="cost-label">Naprawa Fazy III–IV — wymiana izolacji kalenicy, osuszanie, nowe złącza</div>
+    <div class="cost-label">Naprawa Fazy III–IV — wymiana izolacji, osuszanie</div>
   </div>
   <div class="cost-card c4">
     <div class="cost-num">10–15×</div>
-    <div class="cost-label">Naprawa Fazy V — wymiana dachu + więźby + koszty zdrowotne + prawne</div>
+    <div class="cost-label">Naprawa Fazy V — wymiana dachu + więźby + koszty zdrowotne</div>
   </div>
 </div>
 
 <p>
-  Do kosztów bezpośrednich naprawy należy doliczyć: koszty ekspertyz technicznych,
-  koszty leczenia chorób zawodowych/alergologicznych, koszt utraty wartości nieruchomości,
-  koszt tymczasowego zakwaterowania podczas remontu (2–6 tygodni)
-  oraz potencjalne koszty sądowe i odszkodowania.
   <mark>Szacowany łączny koszt awarii Fazy V: 12–18× koszt prawidłowego wykonania.</mark>
 </p>
 
@@ -1823,14 +1670,9 @@
 <h2><span class="sn">§ 10</span> Jedyne skuteczne strategie prewencji — wymagania minimalne</h2>
 
 <div class="fb">
-  <div class="fl">Warunek projektowy — brak konwekcji termicznej w szczelinie (PN-EN 13788)</div>
+  <div class="fl">Warunek projektowy — brak konwekcji termicznej w szczelinie</div>
   \[h_{\max} = \left(\frac{1708\, \nu\, \alpha}{g\, \beta\, \Delta T}\right)^{1/3} \approx 2{,}5\ \text{mm}\ (\Delta T = 20\ \text{K})\]
-  <p>
-    Wynik wskazuje, że nawet szczeliny rzędu 2–3 mm generują konwekcję termiczną.
-    Kryterium projektowe: h ≤ 0,5 mm przez cały 50-letni okres eksploatacji.
-    Niemożliwe do osiągnięcia bez ciągłej wewnętrznej warstwy paroszczelnej
-    <em>i</em> eliminacji pianki OC z przekroju kalenicy.
-  </p>
+  <p>Kryterium projektowe: h ≤ 0,5 mm przez cały 50-letni okres eksploatacji — niemożliwe bez eliminacji pianki OC.</p>
 </div>
 
 <table>
@@ -1846,38 +1688,38 @@
     <tr>
       <td><strong>Ciągła wewnętrzna paroizolacja</strong></td>
       <td>Redukuje dyfuzję o ~1000×. Nie eliminuje konwekcji przez OC.</td>
-      <td class="vp">CZĘŚCIOWA — konieczna, ale niewystarczająca</td>
-      <td>µ ≥ 50 000; EPDM/TPO; złącza na klej MS lub membrana hot-melt; deformacja ≥25% (EN 12317)</td>
+      <td class="vp">CZĘŚCIOWA — konieczna, niewystarczająca</td>
+      <td>µ ≥ 50 000; złącza na klej MS; deformacja ≥25%</td>
     </tr>
     <tr>
       <td><strong>Eliminacja pianki OC z kalenicy</strong></td>
-      <td>Zastąpienie µ≈3 materiałem µ &gt; 100; usunięcie medium transportu</td>
+      <td>Zastąpienie µ≈3 materiałem µ &gt; 100</td>
       <td class="vo">WYSOKA — adresuje źródło problemu</td>
-      <td>Pianka CC (zamknięte komórki) µ ≥ 50; alternatywnie: listwa z EPDM prefabrykowana</td>
+      <td>Pianka CC µ ≥ 50 lub listwa EPDM prefabrykowana</td>
     </tr>
     <tr>
-      <td><strong>Ciągłość termiczna PIR w kalenicay</strong></td>
-      <td>Brak strefy T &lt; T<sub>dew</sub> w przekroju → brak kondensacji</td>
-      <td class="vo">WYSOKA — eliminuje kondensację</td>
-      <td>Kliny PIR; kompensacja grubości; weryfikacja numeryczna T<sub>min</sub> &gt; T<sub>dew</sub></td>
+      <td><strong>Ciągłość termiczna PIR</strong></td>
+      <td>Brak T &lt; T<sub>dew</sub> w przekroju → brak kondensacji</td>
+      <td class="vo">WYSOKA</td>
+      <td>Kliny PIR; weryfikacja T<sub>min</sub> &gt; T<sub>dew</sub></td>
     </tr>
     <tr>
       <td><strong>Obustronna bariera paroszczelna</strong></td>
-      <td>Wewnątrz (ciepła) + uszczelnienie złącza (nie taśma zewnętrzna, ale klej paroszczelny)</td>
-      <td class="vo">WYSOKA — blokuje dyfuzję i konwekcję dyfuzyjną</td>
-      <td>Dwustronne uszczelnienie; klej paroszczelny na krawędziach cięcia PIR; weryfikacja µ·d ≥ 10 m</td>
+      <td>Wewnątrz + uszczelnienie złącza klejem paroszczelnym</td>
+      <td class="vo">WYSOKA</td>
+      <td>Klej paroszczelny na krawędziach cięcia PIR; µ·d ≥ 10 m</td>
     </tr>
     <tr>
       <td><strong>Monitoring RH in situ</strong></td>
       <td>Wczesne wykrycie Fazy I przed bifurkacją</td>
-      <td class="vp">UZUPEŁNIAJĄCA — nie zapobiega, ale umożliwia naprawę</td>
-      <td>Czujniki RH + T w złączu; alarm przy RH &gt; 80%; trwałość czujnika &gt;20 lat</td>
+      <td class="vp">UZUPEŁNIAJĄCA</td>
+      <td>Czujniki RH + T w złączu; alarm przy RH &gt; 80%</td>
     </tr>
     <tr>
       <td><strong>Taśma alu/PE zewnętrzna</strong></td>
       <td>Blokuje tylko infiltrację opadową od zewnątrz</td>
       <td class="vf">BRAK wobec dyfuzji wewnętrznej</td>
-      <td>Stosować wyłącznie jako element dodatkowy; nigdy jako główne uszczelnienie dyfuzyjne</td>
+      <td>Nigdy jako główne uszczelnienie dyfuzyjne</td>
     </tr>
   </tbody>
 </table>
@@ -1885,29 +1727,24 @@
 <div class="note">
   <strong>Wymagania minimalne prawidłowego projektowania złącza kalenicy PIR:</strong>
   (1) Ciągła paroizolacja po stronie ciepłej — konieczna, ale <em>niewystarczająca</em>;
-  (2) Eliminacja pianki OC — zastąpienie materiałem o µ ≥ 50, CC SPF lub listwą EPDM;
-  (3) Ciągłość termiczna — brak mostka termicznego w przekroju kalenicy;
-  (4) Uszczelnienie krawędzi cięcia płyt PIR klejem paroszczelnym;
-  (5) Weryfikacja projektowa metodą numeryczną HAM (WUFI / DELPHIN) dla lokalnych warunków klimatycznych;
-  (6) Monitoring RH jako system wczesnego ostrzegania.
-  Brak spełnienia punktów 1–4 <mark>czyni projekt niezgodnym z PN-EN 15026 i WT 2021</mark>
-  i naraża projektanta na pełną odpowiedzialność prawną za szkody wynikłe z degradacji.
+  (2) Eliminacja pianki OC — zastąpienie CC SPF lub listwą EPDM;
+  (3) Ciągłość termiczna — brak mostka w przekroju kalenicy;
+  (4) Uszczelnienie krawędzi cięcia klejem paroszczelnym;
+  (5) Weryfikacja HAM (WUFI / DELPHIN);
+  (6) Monitoring RH.
+  Brak spełnienia punktów 1–4 <mark>czyni projekt niezgodnym z PN-EN 15026 i WT 2021</mark>.
 </div>
 
 <hr class="sep">
 
 <p style="font-size:0.9rem; color:#666; font-style:italic; text-align:center; line-height:1.7;">
   Opisany problem jest błędem systemowym — wynikającym z luki wiedzy na styku projektowania,
-  dystrybucji materiałów i wykonawstwa. Ani producent PIR, ani wykonawca prac dachowych
-  nie są zobowiązani do znajomości pełnej fizyki przegród na poziomie inżynieryjnym.
-  Obowiązek ten spoczywa na projektancie — i właśnie dlatego rola niezależnego inżyniera
-  jako inwestora zastępczego lub inspektora nadzoru jest niezbędna dla długoterminowego
-  bezpieczeństwa i trwałości konstrukcji. Norma PN-EN 1990 wymaga 50 lat trwałości.
+  dystrybucji materiałów i wykonawstwa. Norma PN-EN 1990 wymaga 50 lat trwałości.
   Opisany błąd skraca żywotność układu dachowego do 8–25 lat. Różnica jest kosztowna,
   zdrowotnie niebezpieczna i prawnie dotkliwa dla wszystkich odpowiedzialnych stron.
 </p>
 
-</div><!-- end content -->
+</div>
 
 <footer>
   Model opracowany na poziomie naukowym inżynierii budownictwa · Wersja 3<br>
@@ -1917,7 +1754,6 @@
 </footer>
 
 <script>
-  // Force MathJax retypeset after DOM is ready — fixes desktop rendering
   document.addEventListener("DOMContentLoaded", function() {
     if (window.MathJax) {
       MathJax.startup.promise.then(function() {
