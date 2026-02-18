@@ -7,6 +7,25 @@
 
   
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- MathJax 3 — estetyczne wzory matematyczne dla GitHub Pages -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      chtml: {
+        scale: 1.05,
+        mathmlSpacing: true
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <style>
     :root {
       --ink: #0f0f1a;
@@ -144,28 +163,6 @@
       padding:18px 26px; margin:18px 0;
       border-radius:0 8px 8px 0; overflow-x:auto;
     }
-
-    /* ════ MATH DISPLAY — pure HTML, no external libs ════ */
-    .math-block {
-      display: block;
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: 1.08rem;
-      text-align: center;
-      padding: 10px 12px;
-      margin: 10px 0;
-      color: #1a2a4a;
-      letter-spacing: 0.01em;
-      line-height: 1.7;
-      background: rgba(29, 78, 137, 0.04);
-      border-radius: 4px;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    .math-block strong {
-      color: #11253f;
-      font-weight: 700;
-    }
-    .fb .math-block { margin: 10px 0; }
 
     .fl {
       font-family:'JetBrains Mono',monospace;
@@ -478,6 +475,16 @@
     .cost-card.c4 .cost-num { color:#7b0000; }
 
     /* ════ SEPARATOR ════ */
+
+    /* MathJax display formula styling */
+    mjx-container[jax="CHTML"][display="true"] {
+      display: block;
+      text-align: center;
+      margin: 14px 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    mjx-container { font-size: 1.05em; }
     hr.sep { border:none; border-top:1px solid var(--border); margin:48px 0; }
 
     /* ════ FOOTER ════ */
@@ -924,7 +931,7 @@
 
 <div class="fb">
   <div class="fl">Definicja S<sub>d</sub> — opór dyfuzyjny warstwy materiałowej</div>
-  <div class="math-block">S<sub>d</sub> = µ · d &nbsp;&nbsp;&nbsp; [m]</div>
+  \[S_d = \mu \cdot d \qquad [\text{m}]\]
   <p>
     µ — współczynnik oporu dyfuzyjnego materiału, d — grubość warstwy [m].
     S<sub>d</sub> wyraża grubość słupa powietrza stawiającego równoważny opór dyfuzji pary.
@@ -935,7 +942,7 @@
 
 <div class="fb">
   <div class="fl">Całkowity opór dyfuzyjny Z<sub>d</sub> i wymagany S<sub>d</sub></div>
-  <div class="math-block">Z<sub>d</sub> = S<sub>d</sub> / (D<sub>0</sub> · A) = (µ · d) / (D<sub>0</sub> · A) &nbsp;&nbsp;&nbsp; J<sub>dif</sub> = Δp<sub>v</sub> / Z<sub>d</sub></div>
+  \[Z_d = \frac{S_d}{D_0 \cdot A} = \frac{\mu \cdot d}{D_0 \cdot A} \qquad J_{\text{dif}} = \frac{\Delta p_v}{Z_d}\]
   <p>
     Dla skutecznego ograniczenia kondensacji w polskich warunkach zimowych
     (PN-EN 13788, strefa klimatyczna III–IV) wymagane
@@ -1024,7 +1031,7 @@
 
 <div class="fb">
   <div class="fl">Wpływ nieszczelności punktowej na bilans wilgotnościowy bariery</div>
-  <div class="math-block">ṁ<sub>leak</sub> = C<sub>d</sub> · A<sub>leak</sub> · √(2ρΔP) &nbsp;&nbsp;&nbsp; [kg·s<sup>−1</sup>]</div>
+  \[\dot{m}_{\text{leak}} = C_d \cdot A_{\text{leak}} \cdot \sqrt{2\rho\Delta P} \qquad [\text{kg·s}^{-1}]\]
   <p>
     C<sub>d</sub> ≈ 0,6, ΔP = 10 Pa (efekt kominowy, poziom kalenicy).
     Nieszczelność 1 mm² (typowe dziurki przy łącznikach mechanicznych bariery):
@@ -1056,8 +1063,8 @@
 
 <div class="fb">
   <div class="fl">Membrana inteligentna — bilans dyfuzyjny z OC w kalenicay</div>
-  <div class="math-block">S<sub>d,membrana</sub><sup>zima</sup> ≈ 10–25 m &nbsp;&nbsp; ≫ &nbsp;&nbsp; S<sub>d,OC</sub> ≈ 0,3 m</div>
-  <div class="math-block">S<sub>d,membrana</sub><sup>lato</sup> ≈ 0,3–1 m &nbsp;&nbsp; ≈ &nbsp;&nbsp; S<sub>d,OC</sub> ≈ 0,3 m</div>
+  \[S_{d,\text{membrana}}^{\text{zima}} \approx 10{-}25\ \text{m} \quad \gg \quad S_{d,\text{OC}} \approx 0{,}3\ \text{m}\]
+  \[S_{d,\text{membrana}}^{\text{lato}} \approx 0{,}3{-}1\ \text{m} \quad \approx \quad S_{d,\text{OC}} \approx 0{,}3\ \text{m}\]
   <p>
     Zimą membrana dominuje bilans dyfuzyjny (stosunek 33–83:1) — ogranicza dopływ wilgoci.
     Latem membrana otwiera się — ale gradient suszenia Δp<sub>v,lato</sub> ≈ 100–300 Pa
@@ -1145,8 +1152,8 @@
 
 <div class="fb">
   <div class="fl">Gradient ciśnienia pary — warunki zimowe (Polska, strefa III)</div>
-  <div class="math-block">Δp<sub>v</sub> = p<sub>v</sub>(T<sub>int</sub>, φ<sub>int</sub>) − p<sub>v</sub>(T<sub>ext</sub>, φ<sub>ext</sub>)</div>
-  <div class="math-block">= 0,55 × 2338 Pa − 0,90 × 165 Pa ≈ <strong>1136–1270 Pa</strong></div>
+  \[\Delta p_v = p_v(T_{\text{int}}, \varphi_{\text{int}}) - p_v(T_{\text{ext}}, \varphi_{\text{ext}})\]
+  \[= 0{,}55 \times 2338\,\text{Pa} - 0{,}90 \times 165\,\text{Pa} \approx \mathbf{1136{-}1270\,\text{Pa}}\]
   <p>
     Przy T<sub>int</sub> = 20°C / φ = 55% i T<sub>ext</sub> = −15°C / φ = 90%.
     Gradient ten osiąga maksimum właśnie w kalenicay — najwyższy punkt przegrody,
@@ -1170,7 +1177,7 @@
 
 <div class="fb">
   <div class="fl">Opory dyfuzyjne materiałów w złączu kalenicy</div>
-  <div class="math-block">µ<sub>pianka OC</sub> ≈ 3–5 &nbsp;&nbsp;&nbsp;&nbsp; µ<sub>rdzeń PIR</sub> ≈ 50–200 &nbsp;&nbsp;&nbsp;&nbsp; µ<sub>folia paroizol.</sub> ≥ 50 000</div>
+  \[\mu_{\text{pianka OC}} \approx 3{-}5 \qquad \mu_{\text{rdzeń PIR}} \approx 50{-}200 \qquad \mu_{\text{folia paroizol.}} \geq 50\,000\]
   <p>
     Współczynnik oporu dyfuzyjnego µ (bezwymiarowy) — stosunek oporu dyfuzji w materiale
     do oporu w powietrzu. <strong>Pianka OC jest ~40× bardziej przepuszczalna niż rdzeń PIR
@@ -1182,7 +1189,7 @@
 
 <div class="fb">
   <div class="fl">Efektywny współczynnik dyfuzji — model Millingtona–Quirka</div>
-  <div class="math-block">D<sub>eff</sub> = D<sub>0</sub> · (ε<sup>10/3</sup> / τ<sup>2</sup>) &nbsp;&nbsp;&nbsp; D<sub>0</sub> = 2,56 × 10<sup>−5</sup> m²·s<sup>−1</sup></div>
+  \[D_{\text{eff}} = D_0 \cdot \frac{\varepsilon^{10/3}}{\tau^2} \qquad D_0 = 2{,}56 \times 10^{-5}\ \text{m}^2\text{·s}^{-1}\]
   <p>
     Pianka OC: ε ≈ 0,92 (92% otwartych komórek), τ ≈ 1,15 →
     <strong>D<sub>eff,OC</sub> ≈ 1,9 × 10⁻⁵ m²·s⁻¹</strong> — niemal równy dyfuzji swobodnej.<br>
@@ -1225,8 +1232,8 @@
 
 <div class="fb">
   <div class="fl">Potencjał suszenia — kierunek przepływu latem vs zimą</div>
-  <div class="math-block">Δp<sub>v</sub><sup>zima</sup> = p<sub>v,int</sub> − p<sub>v,ext</sub> ≈ +1200 Pa &nbsp;&nbsp; (wilgoć → na zewnątrz)</div>
-  <div class="math-block">Δp<sub>v</sub><sup>lato</sup> = p<sub>v,int</sub> − p<sub>v,ext</sub> ≈ −200–+300 Pa &nbsp;&nbsp; (niejednoznaczny)</div>
+  \[\Delta p_v^{\text{zima}} = p_{v,\text{int}} - p_{v,\text{ext}} \approx +1200\,\text{Pa} \quad \text{(wilgoć → na zewnątrz)}\]
+  \[\Delta p_v^{\text{lato}} = p_{v,\text{int}} - p_{v,\text{ext}} \approx -200{-}+300\,\text{Pa} \quad \text{(niejednoznaczny)}\]
   <p>
     W strefie klimatycznej Polski latem gradient ciśnienia pary jest znacznie mniejszy
     i często odwrotny (gorące, wilgotne lato — nawet wyższe p<sub>v</sub> na zewnątrz).
@@ -1245,7 +1252,7 @@
 
 <div class="fb">
   <div class="fl">Strumień dyfuzji Ficka — porównanie scenariuszy</div>
-  <div class="math-block">J̇<sub>dif</sub> = Δp<sub>v</sub> / ΣR<sub>d,i</sub> &nbsp;&nbsp;&nbsp; R<sub>d,i</sub> = (µ<sub>i</sub> · d<sub>i</sub>) / (D<sub>0</sub> · A)</div>
+  \[\dot{J}_{\text{dif}} = \frac{\Delta p_v}{\sum R_{d,i}} \qquad R_{d,i} = \frac{\mu_i \cdot d_i}{D_0 \cdot A}\]
   <p>
     <strong>Scenariusz A</strong> (z paroizolacją µ = 100 000, d = 0,0002 m):
     R<sub>d,paroizol</sub> ≈ 7,8 × 10⁸ Pa·s/kg → strumień ≈ 1,4 × 10⁻⁹ kg/(m²·s).<br>
@@ -1261,7 +1268,7 @@
 
 <div class="fb">
   <div class="fl">Przepływ konwekcyjny przez piankę OC — model Darcy'ego</div>
-  <div class="math-block">Q̇<sub>konw</sub> = (k<sub>D</sub> · A · ΔP) / (η · L) &nbsp;&nbsp;&nbsp; k<sub>D,OC</sub> ≈ 10<sup>−9</sup>–10<sup>−10</sup> m²</div>
+  \[\dot{Q}_{\text{konw}} = \frac{k_D \cdot A \cdot \Delta P}{\eta \cdot L} \qquad k_{D,\text{OC}} \approx 10^{-9}{-}10^{-10}\ \text{m}^2\]
   <p>
     Dla A = 0,5 m × 0,08 m = 0,04 m², ΔP = 10 Pa (efekt kominowy), L = 0,08 m, η = 1,81·10⁻⁵ Pa·s:<br>
     Q̇ ≈ <strong>2,2 × 10⁻⁶ m³/s</strong> — stały przepływ wilgotnego powietrza przez piankę OC.<br>
@@ -1273,7 +1280,7 @@
 
 <div class="fb">
   <div class="fl">Liczba Pecleta — kryterium dominacji konwekcji nad dyfuzją</div>
-  <div class="math-block">Pe = (v̄ · L) / D<sub>eff</sub> = (0,005 · 0,08) / (1,9 × 10<sup>−5</sup>) ≈ <strong>21</strong></div>
+  \[\text{Pe} = \frac{\bar{v} \cdot L}{D_{\text{eff}}} \approx \frac{0{,}005 \cdot 0{,}08}{1{,}9 \times 10^{-5}} \approx \mathbf{21}\]
   <p>
     Pe ≫ 1 — konwekcja dominuje nad dyfuzją w pianie OC.
   </p>
@@ -1283,7 +1290,7 @@
 
 <div class="fb">
   <div class="fl">Strumień termodyfuzji Soret'a</div>
-  <div class="math-block">J⃗<sub>S</sub> = −α<sub>T</sub> · ρ<sub>v</sub> · D<sub>eff,OC</sub> · ∇T &nbsp;&nbsp;&nbsp; α<sub>T</sub> ≈ 6 × 10<sup>−3</sup> K<sup>−1</sup></div>
+  \[\vec{J}_S = -\alpha_T \rho_v D_{\text{eff,OC}} \nabla T \qquad \alpha_T \approx 6 \times 10^{-3}\ \text{K}^{-1}\]
   <p>
     ∇T w kalenicay ≈ 250–500 K/m (zima) →
     J<sub>S</sub> ≈ <strong>3,2 × 10⁻⁶ kg/(m²·s)</strong>.
@@ -1295,7 +1302,7 @@
 
 <div class="fb">
   <div class="fl">Strumień resublimacji przy T &lt; 0°C</div>
-  <div class="math-block">ṁ<sub>resub</sub> = k<sub>resub</sub>(T) · max(0, p<sub>v</sub> − p<sub>sat</sub><sup>ice</sup>(T)) − (∂ρ<sub>ice</sub>/∂t) · L<sub>s</sub></div>
+  \[\dot{m}_{\text{resub}} = k_{\text{resub}}(T) \cdot \max\!\left(0,\ p_v - p_{\text{sat}}^{\text{ice}}(T)\right) - \frac{\partial \rho_{\text{ice}}}{\partial t} \cdot L_s\]
   <p>
     L<sub>s</sub> = 2,838 × 10⁶ J·kg⁻¹. Przy temperaturach poniżej zera
     kondensat w pianie OC zamarza — <strong>lód nie ma możliwości ewakuacji</strong>.
@@ -1511,8 +1518,8 @@
 
 <div class="fb">
   <div class="fl">Sprzężone równania energii i masy (Künzel 1994)</div>
-  <div class="math-block">(ρc<sub>p</sub> + c<sub>w</sub>w) · ∂T/∂t = ∇·(λ<sub>eff</sub>(w)·∇T) + L<sub>v</sub>·ṁ<sub>cond</sub> + L<sub>s</sub>·ṁ<sub>resub</sub></div>
-  <div class="math-block">∂w/∂t = ∇·(D<sub>w</sub>(w)·∇w + δ<sub>p</sub>(w)·∇p<sub>v</sub>) − ṁ<sub>cond</sub> − ṁ<sub>resub</sub></div>
+  \[\left(\rho c_p + c_w w\right)\frac{\partial T}{\partial t} = \nabla \cdot \left(\lambda_{\text{eff}}(w) \nabla T\right) + L_v \dot{m}_{\text{cond}} + L_s \dot{m}_{\text{resub}}\]
+  \[\frac{\partial w}{\partial t} = \nabla \cdot \left(D_w(w) \nabla w + \delta_p(w) \nabla p_v\right) - \dot{m}_{\text{cond}} - \dot{m}_{\text{resub}}\]
 </div>
 
 <div class="warn">
@@ -1687,7 +1694,7 @@
 
 <div class="fb">
   <div class="fl">Warunek projektowy — brak konwekcji termicznej w szczelinie</div>
-  <div class="math-block">h<sub>max</sub> = (1708 · ν · α / (g · β · ΔT))<sup>1/3</sup> ≈ 2,5 mm &nbsp;&nbsp; (ΔT = 20 K)</div>
+  \[h_{\max} = \left(\frac{1708\, \nu\, \alpha}{g\, \beta\, \Delta T}\right)^{1/3} \approx 2{,}5\ \text{mm}\ (\Delta T = 20\ \text{K})\]
   <p>Kryterium projektowe: h ≤ 0,5 mm przez cały 50-letni okres eksploatacji — niemożliwe bez eliminacji pianki OC.</p>
 </div>
 
